@@ -207,7 +207,7 @@ export default function URLEncoderPage() {
                   size="sm"
                   className="w-full"
                 >
-                  {t('common.clear')} / Load Example
+                  {t('common.loadExample')}
                 </Button>
               </CardContent>
             </Card>
@@ -373,7 +373,7 @@ export default function URLEncoderPage() {
               Parse
             </Button>
             <Button onClick={loadExampleQuery} variant="outline">
-              Example
+              {t('common.loadExample')}
             </Button>
           </div>
 

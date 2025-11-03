@@ -11,7 +11,8 @@
     "input": "입력",
     "output": "출력",
     "error": "오류",
-    "tips": "팁"
+    "tips": "팁",
+    "loadExample": "예시 불러오기"
   },
   "header": {
     "title": "DevTools Hub"

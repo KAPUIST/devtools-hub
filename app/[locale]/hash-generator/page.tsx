@@ -13,7 +13,7 @@ import { Check, Copy, Upload, AlertTriangle, Info } from "lucide-react"
 export default function HashGeneratorPage() {
   const t = useTranslations()
 
-  // M§∏ ®‹
+  // Text mode state
   const [textInput, setTextInput] = useState("")
   const [textHashes, setTextHashes] = useState<{
     'SHA-1': string
@@ -23,7 +23,7 @@ export default function HashGeneratorPage() {
   } | null>(null)
   const [textLoading, setTextLoading] = useState(false)
 
-  // | ®‹
+  // File mode state
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [fileHashes, setFileHashes] = useState<{
     'SHA-1': string
@@ -35,13 +35,13 @@ export default function HashGeneratorPage() {
   const [dragActive, setDragActive] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  // ı¨ ¡‹
+  // Copy state
   const [copiedHash, setCopiedHash] = useState<string | null>(null)
 
-  // ‹ M§∏
+  // Example data
   const exampleText = "Hello, DevTools Hub!"
 
-  // M§∏ t‹ ›1
+  // Handle text hashing
   const handleHashText = async () => {
     if (!textInput.trim()) return
 
@@ -55,7 +55,7 @@ export default function HashGeneratorPage() {
     setTextLoading(false)
   }
 
-  // |  › x‰Ï
+  // Handle file selection
   const handleFileSelect = async (file: File) => {
     setSelectedFile(file)
     setFileLoading(true)
@@ -69,7 +69,7 @@ export default function HashGeneratorPage() {
     setFileLoading(false)
   }
 
-  // | Ö% ¿Ω
+  // Handle file input change
   const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (file) {
@@ -77,7 +77,7 @@ export default function HashGeneratorPage() {
     }
   }
 
-  // ‹ò¯ d ‹m
+  // Handle drag events
   const handleDrag = (e: React.DragEvent) => {
     e.preventDefault()
     e.stopPropagation()
@@ -99,7 +99,7 @@ export default function HashGeneratorPage() {
     }
   }
 
-  // t‹ ı¨
+  // Handle copy to clipboard
   const handleCopyHash = async (hash: string, algorithm: string) => {
     try {
       await navigator.clipboard.writeText(hash)
@@ -120,7 +120,7 @@ export default function HashGeneratorPage() {
     }
   }
 
-  // ‹ \‹
+  // Load example text
   const loadExample = async () => {
     setTextInput(exampleText)
     setTextLoading(true)
@@ -131,7 +131,7 @@ export default function HashGeneratorPage() {
     setTextLoading(false)
   }
 
-  // t‹ ∞¸ T¡
+  // Render hash results table
   const renderHashResults = (hashes: typeof textHashes, title: string) => {
     if (!hashes) return null
 
@@ -329,10 +329,10 @@ export default function HashGeneratorPage() {
           <CardTitle className="text-lg">{t('common.tips')}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-2 text-sm text-muted-foreground">
-          <p>" {t('hashGenerator.tip1')}</p>
-          <p>" {t('hashGenerator.tip2')}</p>
-          <p>" {t('hashGenerator.tip3')}</p>
-          <p>" {t('hashGenerator.tip4')}</p>
+          <p>‚Ä¢ {t('hashGenerator.tip1')}</p>
+          <p>‚Ä¢ {t('hashGenerator.tip2')}</p>
+          <p>‚Ä¢ {t('hashGenerator.tip3')}</p>
+          <p>‚Ä¢ {t('hashGenerator.tip4')}</p>
         </CardContent>
       </Card>
     </div>

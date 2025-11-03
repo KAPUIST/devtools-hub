@@ -11,7 +11,8 @@
     "input": "Input",
     "output": "Output",
     "error": "Error",
-    "tips": "Tips"
+    "tips": "Tips",
+    "loadExample": "Load Example"
   },
   "header": {
     "title": "DevTools Hub"

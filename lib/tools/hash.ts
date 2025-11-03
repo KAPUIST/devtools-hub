@@ -1,14 +1,14 @@
-// tÜ Là¬˜ À…
+// Hash algorithm types
 export type HashAlgorithm = 'SHA-1' | 'SHA-256' | 'SHA-384' | 'SHA-512'
 
-// tÜ °ü
+// Hash result interface
 export interface HashResult {
   success: boolean
   hash?: string
   errorCode?: 'EMPTY_INPUT' | 'HASH_ERROR' | 'UNSUPPORTED_ALGORITHM'
 }
 
-// | tÜ °ü
+// File hash result interface
 export interface FileHashResult {
   success: boolean
   hashes?: {
@@ -21,7 +21,7 @@ export interface FileHashResult {
 }
 
 /**
- * M¤¸ tÜ Ý1 (Web Crypto API ¬©)
+ * Hash text using Web Crypto API
  */
 export async function hashText(text: string, algorithm: HashAlgorithm): Promise<HashResult> {
   if (!text || text.trim().length === 0) {
@@ -32,14 +32,14 @@ export async function hashText(text: string, algorithm: HashAlgorithm): Promise<
   }
 
   try {
-    // TextEncoder\ 8ôD Uint8Array\ ÀX
+    // Convert text to Uint8Array using TextEncoder
     const encoder = new TextEncoder()
     const data = encoder.encode(text)
 
-    // Web Crypto API\ tÜ Ý1
+    // Hash using Web Crypto API
     const hashBuffer = await crypto.subtle.digest(algorithm, data)
 
-    // ArrayBuffer| hex 8ô\ ÀX
+    // Convert ArrayBuffer to hex string
     const hashArray = Array.from(new Uint8Array(hashBuffer))
     const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('')
 
@@ -56,7 +56,7 @@ export async function hashText(text: string, algorithm: HashAlgorithm): Promise<
 }
 
 /**
- * | tÜ Ý1 (¨à Là¬˜ ÙÜ Ä°)
+ * Hash file (calculate all algorithms simultaneously)
  */
 export async function hashFile(file: File): Promise<FileHashResult> {
   if (!file || file.size === 0) {
@@ -67,10 +67,10 @@ export async function hashFile(file: File): Promise<FileHashResult> {
   }
 
   try {
-    // FileD ArrayBuffer\ }0
+    // Read file as ArrayBuffer
     const arrayBuffer = await file.arrayBuffer()
 
-    // ¨à Là¬˜<\ tÜ Ä°
+    // Calculate all hashes in parallel
     const algorithms: HashAlgorithm[] = ['SHA-1', 'SHA-256', 'SHA-384', 'SHA-512']
     const hashPromises = algorithms.map(async (algorithm) => {
       const hashBuffer = await crypto.subtle.digest(algorithm, arrayBuffer)
@@ -101,7 +101,7 @@ export async function hashFile(file: File): Promise<FileHashResult> {
 }
 
 /**
- * ìì Là¬˜<\ M¤¸ tÜ | Ý1
+ * Hash text with all algorithms
  */
 export async function hashTextAll(text: string): Promise<{
   success: boolean
