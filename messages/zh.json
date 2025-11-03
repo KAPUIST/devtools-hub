@@ -220,5 +220,44 @@
       "invalidURL": "无效的URL格式",
       "noQueryString": "URL中未找到查询字符串"
     }
+  },
+  "uuidGenerator": {
+    "title": "UUID生成器",
+    "description": "支持批量生成UUID v1/v4",
+    "version": "版本",
+    "v1": "UUID v1 (时间戳)",
+    "v4": "UUID v4 (随机)",
+    "random": "随机",
+    "timestamp": "时间戳",
+    "count": "数量",
+    "generate": "生成",
+    "settings": "设置",
+    "selectOptions": "选择UUID版本和数量",
+    "results": "结果",
+    "generated": "个UUID已生成",
+    "noResults": "尚未生成UUID",
+    "copyAll": "复制全部",
+    "clickGenerate": "点击生成按钮创建UUID",
+    "whatIsUUID": "什么是UUID？",
+    "v4Description": "UUID v4使用加密随机性随机生成。适用于大多数情况。",
+    "v1Description": "UUID v1基于时间戳，包含创建时间。可以按时间顺序排序。",
+    "tip1": "UUID v4是随机生成的，最常用",
+    "tip2": "UUID v1基于时间戳，可以按创建时间排序",
+    "tip3": "点击任意UUID即可复制到剪贴板",
+    "tip4": "使用'复制全部'可一次复制所有UUID (每行一个)",
+    "errors": {
+      "UUID_V4_GENERATION_ERROR": "生成UUID v4失败",
+      "UUID_V1_GENERATION_ERROR": "生成UUID v1失败",
+      "INVALID_COUNT": "数量必须在1到100之间",
+      "GENERATION_ERROR": "生成UUID时发生错误",
+      "BULK_GENERATION_ERROR": "批量生成时发生错误",
+      "COPY_FAILED": "复制到剪贴板失败",
+      "EMPTY_INPUT": "输入为空",
+      "INVALID_LENGTH": "UUID必须是32个字符 (不包括连字符)",
+      "INVALID_CHARACTERS": "UUID只能包含十六进制字符(0-9, a-f)",
+      "FORMAT_ERROR": "格式化UUID时发生错误",
+      "INVALID_UUID": "无效的UUID格式",
+      "PARSE_ERROR": "解析UUID时发生错误"
+    }
   }
 }

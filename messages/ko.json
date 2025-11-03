@@ -220,5 +220,44 @@
       "invalidURL": "올바르지 않은 URL 형식입니다",
       "noQueryString": "URL에 쿼리 스트링이 없습니다"
     }
+  },
+  "uuidGenerator": {
+    "title": "UUID 생성기",
+    "description": "UUID v1/v4를 일괄 생성 지원과 함께 생성",
+    "version": "버전",
+    "v1": "UUID v1 (타임스탬프)",
+    "v4": "UUID v4 (랜덤)",
+    "random": "랜덤",
+    "timestamp": "타임스탬프",
+    "count": "개수",
+    "generate": "생성",
+    "settings": "설정",
+    "selectOptions": "UUID 버전과 개수를 선택하세요",
+    "results": "결과",
+    "generated": "개 UUID 생성됨",
+    "noResults": "아직 생성된 UUID가 없습니다",
+    "copyAll": "모두 복사",
+    "clickGenerate": "생성 버튼을 클릭하여 UUID를 만드세요",
+    "whatIsUUID": "UUID란?",
+    "v4Description": "UUID v4는 암호학적 무작위성을 사용하여 랜덤하게 생성됩니다. 대부분의 경우에 사용하세요.",
+    "v1Description": "UUID v1은 타임스탬프 기반이며 생성 시간을 포함합니다. 시간순으로 정렬할 수 있습니다.",
+    "tip1": "UUID v4는 랜덤하게 생성되며 가장 일반적으로 사용됩니다",
+    "tip2": "UUID v1은 타임스탬프 기반이며 생성 시간순으로 정렬할 수 있습니다",
+    "tip3": "UUID를 클릭하면 클립보드에 복사됩니다",
+    "tip4": "'모두 복사'를 사용하면 모든 UUID를 한 번에 복사할 수 있습니다 (줄당 하나씩)",
+    "errors": {
+      "UUID_V4_GENERATION_ERROR": "UUID v4 생성에 실패했습니다",
+      "UUID_V1_GENERATION_ERROR": "UUID v1 생성에 실패했습니다",
+      "INVALID_COUNT": "개수는 1에서 100 사이여야 합니다",
+      "GENERATION_ERROR": "UUID 생성 중 오류가 발생했습니다",
+      "BULK_GENERATION_ERROR": "일괄 생성 중 오류가 발생했습니다",
+      "COPY_FAILED": "클립보드 복사에 실패했습니다",
+      "EMPTY_INPUT": "입력값이 비어있습니다",
+      "INVALID_LENGTH": "UUID는 32자여야 합니다 (하이픈 제외)",
+      "INVALID_CHARACTERS": "UUID는 16진수 문자(0-9, a-f)만 포함해야 합니다",
+      "FORMAT_ERROR": "UUID 포맷팅 중 오류가 발생했습니다",
+      "INVALID_UUID": "올바르지 않은 UUID 형식입니다",
+      "PARSE_ERROR": "UUID 파싱 중 오류가 발생했습니다"
+    }
   }
 }

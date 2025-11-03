@@ -220,5 +220,44 @@
       "invalidURL": "無効なURL形式です",
       "noQueryString": "URLにクエリ文字列が見つかりません"
     }
+  },
+  "uuidGenerator": {
+    "title": "UUID生成器",
+    "description": "一括生成サポート付きでUUID v1/v4を生成",
+    "version": "バージョン",
+    "v1": "UUID v1 (タイムスタンプ)",
+    "v4": "UUID v4 (ランダム)",
+    "random": "ランダム",
+    "timestamp": "タイムスタンプ",
+    "count": "個数",
+    "generate": "生成",
+    "settings": "設定",
+    "selectOptions": "UUIDバージョンと個数を選択",
+    "results": "結果",
+    "generated": "個のUUIDを生成しました",
+    "noResults": "まだUUIDが生成されていません",
+    "copyAll": "すべてコピー",
+    "clickGenerate": "生成ボタンをクリックしてUUIDを作成",
+    "whatIsUUID": "UUIDとは？",
+    "v4Description": "UUID v4は暗号学的ランダム性を使用してランダムに生成されます。ほとんどの場合に使用してください。",
+    "v1Description": "UUID v1はタイムスタンプベースで、生成時刻を含みます。時系列で並べ替えができます。",
+    "tip1": "UUID v4はランダムに生成され、最も一般的に使用されます",
+    "tip2": "UUID v1はタイムスタンプベースで、生成時刻順に並べ替えることができます",
+    "tip3": "UUIDをクリックするとクリップボードにコピーされます",
+    "tip4": "'すべてコピー'を使用すると、すべてのUUIDを一度にコピーできます (1行に1つ)",
+    "errors": {
+      "UUID_V4_GENERATION_ERROR": "UUID v4の生成に失敗しました",
+      "UUID_V1_GENERATION_ERROR": "UUID v1の生成に失敗しました",
+      "INVALID_COUNT": "個数は1から100の間である必要があります",
+      "GENERATION_ERROR": "UUID生成中にエラーが発生しました",
+      "BULK_GENERATION_ERROR": "一括生成中にエラーが発生しました",
+      "COPY_FAILED": "クリップボードへのコピーに失敗しました",
+      "EMPTY_INPUT": "入力が空です",
+      "INVALID_LENGTH": "UUIDは32文字である必要があります (ハイフンを除く)",
+      "INVALID_CHARACTERS": "UUIDは16進数文字(0-9, a-f)のみを含む必要があります",
+      "FORMAT_ERROR": "UUIDのフォーマット中にエラーが発生しました",
+      "INVALID_UUID": "無効なUUID形式です",
+      "PARSE_ERROR": "UUIDの解析中にエラーが発生しました"
+    }
   }
 }

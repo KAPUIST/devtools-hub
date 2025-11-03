@@ -220,5 +220,44 @@
       "invalidURL": "Invalid URL format",
       "noQueryString": "No query string found in URL"
     }
+  },
+  "uuidGenerator": {
+    "title": "UUID Generator",
+    "description": "Generate UUID v1/v4 with bulk generation support",
+    "version": "Version",
+    "v1": "UUID v1 (Timestamp)",
+    "v4": "UUID v4 (Random)",
+    "random": "Random",
+    "timestamp": "Timestamp",
+    "count": "Count",
+    "generate": "Generate",
+    "settings": "Settings",
+    "selectOptions": "Select UUID version and count",
+    "results": "Results",
+    "generated": " UUIDs generated",
+    "noResults": "No UUIDs generated yet",
+    "copyAll": "Copy All",
+    "clickGenerate": "Click Generate to create UUIDs",
+    "whatIsUUID": "What is UUID?",
+    "v4Description": "UUID v4 is randomly generated using cryptographic randomness. Use this for most cases.",
+    "v1Description": "UUID v1 is timestamp-based and includes the creation time. Can be sorted chronologically.",
+    "tip1": "UUID v4 is randomly generated and is the most commonly used",
+    "tip2": "UUID v1 is timestamp-based and can be used to sort by creation time",
+    "tip3": "Click on any UUID to copy it to clipboard",
+    "tip4": "Use 'Copy All' to copy all UUIDs at once (one per line)",
+    "errors": {
+      "UUID_V4_GENERATION_ERROR": "Failed to generate UUID v4",
+      "UUID_V1_GENERATION_ERROR": "Failed to generate UUID v1",
+      "INVALID_COUNT": "Count must be between 1 and 100",
+      "GENERATION_ERROR": "An error occurred while generating UUIDs",
+      "BULK_GENERATION_ERROR": "An error occurred during bulk generation",
+      "COPY_FAILED": "Failed to copy to clipboard",
+      "EMPTY_INPUT": "Input is empty",
+      "INVALID_LENGTH": "UUID must be 32 characters (excluding hyphens)",
+      "INVALID_CHARACTERS": "UUID must contain only hexadecimal characters (0-9, a-f)",
+      "FORMAT_ERROR": "An error occurred while formatting UUID",
+      "INVALID_UUID": "Invalid UUID format",
+      "PARSE_ERROR": "An error occurred while parsing UUID"
+    }
   }
 }

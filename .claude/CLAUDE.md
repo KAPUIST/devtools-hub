@@ -563,6 +563,16 @@ export default async function Page() {
 - ✅ 예시 JWT 토큰 자동 로드
 - ✅ 다국어 번역 완료 (4개 언어)
 
+#### UUID Generator (완료 - 2025-11-03)
+- ✅ **UUID v4 생성** - 암호학적 랜덤 생성 (crypto.randomUUID())
+- ✅ **UUID v1 생성** - 타임스탬프 기반 생성
+- ✅ **Bulk 생성** - 1~50개 일괄 생성 지원
+- ✅ **버전 정보 표시** - v1/v4, RFC 4122 variant 표시
+- ✅ **원클릭 복사** - 개별 UUID 복사
+- ✅ **모두 복사** - 전체 UUID 한 번에 복사 (줄당 하나)
+- ✅ **초기 로드** - 페이지 열면 자동으로 UUID v4 5개 생성
+- ✅ 다국어 번역 완료 (4개 언어)
+
 #### 번역 및 UX
 - ✅ Sidebar 도구 이름 영문 유지 (카테고리만 번역)
 - ✅ Header 검색창 레이아웃 개선 (왼쪽 정렬)
@@ -570,6 +580,7 @@ export default async function Page() {
 - ✅ RegExp Tester 완전 번역
 - ✅ Base64 Encoder/Decoder 완전 번역
 - ✅ JWT Debugger 완전 번역
+- ✅ UUID Generator 완전 번역
 - ✅ 타입 체크 통과 (0 errors)
 
 ### 🚧 Week 2: 추가 도구 (다음 작업)
@@ -580,15 +591,12 @@ export default async function Page() {
 2. [ ] **URL Encoder/Decoder**
    - URL encoding/decoding
    - Query string parser
-3. [ ] **UUID Generator**
-   - UUID v1/v4/v5 생성
-   - Bulk generation
-4. [ ] **Hash Generator**
+3. [ ] **Hash Generator**
    - MD5, SHA-1, SHA-256, SHA-512
    - 파일 해시 계산
-5. [ ] Vercel 배포
-6. [ ] SEO 최적화
-7. [ ] ProductHunt 준비
+4. [ ] Vercel 배포
+5. [ ] SEO 최적화
+6. [ ] ProductHunt 준비
 
 ### 📅 Week 3: AI 기능 (계획)
 1. [ ] JSON → TypeScript Interface (OpenAI API)
