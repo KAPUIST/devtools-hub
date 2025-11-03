@@ -79,7 +79,7 @@ export default function Home() {
           </div>
           <div className="flex items-center justify-between">
             <span>{t('home.toggleDarkMode')}</span>
-            <kbd className="rounded border bg-muted px-2 py-1 text-xs">Cmd+D</kbd>
+            <kbd className="rounded border bg-muted px-2 py-1 text-xs">Cmd+Shift+D</kbd>
           </div>
           <div className="flex items-center justify-between">
             <span>{t('home.copyResult')}</span>

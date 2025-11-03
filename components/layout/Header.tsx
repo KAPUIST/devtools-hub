@@ -1,28 +1,50 @@
 "use client"
 
+import { useState } from "react"
 import Link from "next/link"
 import { useLocale, useTranslations } from "next-intl"
 import { Menu, Search } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
 import { ThemeToggle } from "./ThemeToggle"
 import { LanguageSwitcher } from "./LanguageSwitcher"
+import { Sidebar } from "./Sidebar"
 
 export function Header() {
   const locale = useLocale()
   const t = useTranslations()
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 max-w-screen-2xl items-center">
         {/* Mobile menu button */}
-        <Button
-          variant="ghost"
-          size="icon"
-          className="mr-2 md:hidden"
-          aria-label="Toggle menu"
-        >
-          <Menu className="h-5 w-5" />
-        </Button>
+        <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+          <SheetTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="mr-2 md:hidden"
+              aria-label="Toggle menu"
+            >
+              <Menu className="h-5 w-5" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left" className="w-72 p-0">
+            <SheetHeader className="border-b px-6 py-4">
+              <SheetTitle>Tools</SheetTitle>
+            </SheetHeader>
+            <div className="overflow-auto h-[calc(100vh-4rem)]">
+              <Sidebar onNavigate={() => setMobileMenuOpen(false)} />
+            </div>
+          </SheetContent>
+        </Sheet>
 
         {/* Logo */}
         <div className="mr-4 flex">

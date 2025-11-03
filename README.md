@@ -185,7 +185,7 @@ devtools-hub/
 | 단축키 | 기능 |
 |--------|------|
 | `Cmd+K` | 도구 검색 (Command Palette) |
-| `Cmd+D` | 다크모드 토글 |
+| `Cmd+Shift+D` | 다크모드 토글 (Windows: `Ctrl+Shift+D`) |
 | `Cmd+C` | 결과 복사 |
 | `Cmd+V` | 붙여넣기 |
 

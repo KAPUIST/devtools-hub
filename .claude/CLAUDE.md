@@ -184,7 +184,7 @@ Cmd+Enter      → 실행/변환
 Cmd+[          → 이전 도구
 Cmd+]          → 다음 도구
 Cmd+/          → 단축키 도움말
-Cmd+D          → 다크모드 토글
+Cmd+Shift+D    → 다크모드 토글 (Windows: Ctrl+Shift+D)
 ```
 
 ### 4. 로컬 히스토리
