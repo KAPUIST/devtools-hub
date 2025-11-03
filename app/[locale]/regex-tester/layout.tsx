@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { regexTesterStructuredData, regexTesterFAQ, regexTesterHowTo } from './metadata'
 
 export const metadata: Metadata = {
   title: 'RegExp Tester - Test Regular Expressions Online',
@@ -30,5 +31,28 @@ export default function RegexTesterLayout({
 }: {
   children: React.ReactNode
 }) {
-  return children
+  return (
+    <>
+      {/* Structured Data for AEO (Answer Engine Optimization) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(regexTesterStructuredData),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(regexTesterFAQ),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(regexTesterHowTo),
+        }}
+      />
+      {children}
+    </>
+  )
 }

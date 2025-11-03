@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { qrGeneratorStructuredData, qrGeneratorFAQ, qrGeneratorHowTo } from './metadata'
 
 export const metadata: Metadata = {
   title: 'QR Code Generator - Create QR Codes Online Free',
@@ -30,5 +31,28 @@ export default function QrGeneratorLayout({
 }: {
   children: React.ReactNode
 }) {
-  return children
+  return (
+    <>
+      {/* Structured Data for AEO (Answer Engine Optimization) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(qrGeneratorStructuredData),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(qrGeneratorFAQ),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(qrGeneratorHowTo),
+        }}
+      />
+      {children}
+    </>
+  )
 }

@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { base64StructuredData, base64FAQ, base64HowTo } from './metadata'
 
 export const metadata: Metadata = {
   title: 'Base64 Encoder/Decoder - Encode & Decode Base64 Online',
@@ -30,5 +31,28 @@ export default function Base64Layout({
 }: {
   children: React.ReactNode
 }) {
-  return children
+  return (
+    <>
+      {/* Structured Data for AEO (Answer Engine Optimization) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(base64StructuredData),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(base64FAQ),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(base64HowTo),
+        }}
+      />
+      {children}
+    </>
+  )
 }

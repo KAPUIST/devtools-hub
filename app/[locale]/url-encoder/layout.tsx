@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { urlEncoderStructuredData, urlEncoderFAQ, urlEncoderHowTo } from './metadata'
 
 export const metadata: Metadata = {
   title: 'URL Encoder/Decoder - Encode & Decode URLs Online',
@@ -30,5 +31,28 @@ export default function UrlEncoderLayout({
 }: {
   children: React.ReactNode
 }) {
-  return children
+  return (
+    <>
+      {/* Structured Data for AEO (Answer Engine Optimization) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(urlEncoderStructuredData),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(urlEncoderFAQ),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(urlEncoderHowTo),
+        }}
+      />
+      {children}
+    </>
+  )
 }

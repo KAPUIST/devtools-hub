@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { jwtDebuggerStructuredData, jwtDebuggerFAQ, jwtDebuggerHowTo } from './metadata'
 
 export const metadata: Metadata = {
   title: 'JWT Debugger - Decode & Verify JSON Web Tokens Online',
@@ -30,5 +31,28 @@ export default function JwtDebuggerLayout({
 }: {
   children: React.ReactNode
 }) {
-  return children
+  return (
+    <>
+      {/* Structured Data for AEO (Answer Engine Optimization) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jwtDebuggerStructuredData),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jwtDebuggerFAQ),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jwtDebuggerHowTo),
+        }}
+      />
+      {children}
+    </>
+  )
 }

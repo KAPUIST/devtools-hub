@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { hashGeneratorStructuredData, hashGeneratorFAQ, hashGeneratorHowTo } from './metadata'
 
 export const metadata: Metadata = {
   title: 'Hash Generator - Generate SHA-1, SHA-256, SHA-512 Hash Online',
@@ -30,5 +31,28 @@ export default function HashGeneratorLayout({
 }: {
   children: React.ReactNode
 }) {
-  return children
+  return (
+    <>
+      {/* Structured Data for AEO (Answer Engine Optimization) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(hashGeneratorStructuredData),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(hashGeneratorFAQ),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(hashGeneratorHowTo),
+        }}
+      />
+      {children}
+    </>
+  )
 }

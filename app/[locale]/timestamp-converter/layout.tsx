@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { timestampConverterStructuredData, timestampConverterFAQ, timestampConverterHowTo } from './metadata'
 
 export const metadata: Metadata = {
   title: 'Unix Timestamp Converter - Convert Unix Time to Date Online',
@@ -30,5 +31,28 @@ export default function TimestampConverterLayout({
 }: {
   children: React.ReactNode
 }) {
-  return children
+  return (
+    <>
+      {/* Structured Data for AEO (Answer Engine Optimization) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(timestampConverterStructuredData),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(timestampConverterFAQ),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(timestampConverterHowTo),
+        }}
+      />
+      {children}
+    </>
+  )
 }

@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { uuidGeneratorStructuredData, uuidGeneratorFAQ, uuidGeneratorHowTo } from './metadata'
 
 export const metadata: Metadata = {
   title: 'UUID Generator - Generate UUID v1/v4 Online',
@@ -30,5 +31,28 @@ export default function UuidGeneratorLayout({
 }: {
   children: React.ReactNode
 }) {
-  return children
+  return (
+    <>
+      {/* Structured Data for AEO (Answer Engine Optimization) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(uuidGeneratorStructuredData),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(uuidGeneratorFAQ),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(uuidGeneratorHowTo),
+        }}
+      />
+      {children}
+    </>
+  )
 }

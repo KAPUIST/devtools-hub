@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { colorConverterStructuredData, colorConverterFAQ, colorConverterHowTo } from './metadata'
 
 export const metadata: Metadata = {
   title: 'Color Converter - Convert HEX, RGB, HSL Colors Online',
@@ -30,5 +31,28 @@ export default function ColorConverterLayout({
 }: {
   children: React.ReactNode
 }) {
-  return children
+  return (
+    <>
+      {/* Structured Data for AEO (Answer Engine Optimization) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(colorConverterStructuredData),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(colorConverterFAQ),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(colorConverterHowTo),
+        }}
+      />
+      {children}
+    </>
+  )
 }
