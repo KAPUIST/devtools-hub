@@ -31,7 +31,7 @@ export default function QRGeneratorPage() {
 
   // Example data
   const examples = [
-    { name: "Website", value: "https://devtools-hub.vercel.app" },
+    { name: "Website", value: "https://devtools-hub-app.vercel.app" },
     { name: "Email", value: "mailto:hello@example.com" },
     { name: "Phone", value: "tel:+1234567890" },
     { name: "WiFi", value: "WIFI:T:WPA;S:MyNetwork;P:MyPassword;;" },

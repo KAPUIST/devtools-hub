@@ -28,7 +28,7 @@ export const urlEncoderStructuredData = {
     'No login required',
     'Works offline',
   ],
-  screenshot: 'https://devtools-hub.vercel.app/screenshots/url-encoder.png',
+  screenshot: 'https://devtools-hub-app.vercel.app/screenshots/url-encoder.png',
 }
 
 // FAQ for AEO
@@ -90,25 +90,25 @@ export const urlEncoderHowTo = {
       '@type': 'HowToStep',
       name: 'Paste URL or Text',
       text: 'Paste your URL, query string, or text that needs encoding/decoding. You can paste full URLs like "https://example.com/search?q=hello world" or just the parts that need encoding.',
-      image: 'https://devtools-hub.vercel.app/screenshots/url-step1.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/url-step1.png',
     },
     {
       '@type': 'HowToStep',
       name: 'Choose Operation',
       text: 'Click Encode to convert special characters to percent-encoded format (%XX), or Decode to convert encoded URLs back to readable text. The tool automatically handles UTF-8 encoding for international characters.',
-      image: 'https://devtools-hub.vercel.app/screenshots/url-step2.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/url-step2.png',
     },
     {
       '@type': 'HowToStep',
       name: 'View Results',
       text: 'The encoded or decoded result appears instantly. Encoded text shows special characters replaced with %XX sequences. Decoded text shows the original readable characters.',
-      image: 'https://devtools-hub.vercel.app/screenshots/url-step3.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/url-step3.png',
     },
     {
       '@type': 'HowToStep',
       name: 'Copy Result',
       text: 'Use the Copy button to copy the encoded/decoded URL to your clipboard. You can then use it in your API requests, HTML links, or JavaScript code.',
-      image: 'https://devtools-hub.vercel.app/screenshots/url-step4.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/url-step4.png',
     },
   ],
 }

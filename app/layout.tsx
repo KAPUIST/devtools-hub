@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://devtools-hub.vercel.app'),
+  metadataBase: new URL('https://devtools-hub-app.vercel.app'),
   title: {
     default: "DevTools Hub - Free Online Developer Tools",
     template: "%s | DevTools Hub",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://devtools-hub.vercel.app",
+    url: "https://devtools-hub-app.vercel.app",
     title: "DevTools Hub - Free Online Developer Tools",
     description: "Free online developer tools with the best UX/DX. JSON formatter, RegExp tester, Base64 encoder/decoder, and more.",
     siteName: "DevTools Hub",

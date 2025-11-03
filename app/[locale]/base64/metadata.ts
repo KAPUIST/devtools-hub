@@ -28,7 +28,7 @@ export const base64StructuredData = {
     'Works offline',
     'Privacy-first (client-side processing)',
   ],
-  screenshot: 'https://devtools-hub.vercel.app/screenshots/base64.png',
+  screenshot: 'https://devtools-hub-app.vercel.app/screenshots/base64.png',
 }
 
 // FAQ for AEO
@@ -90,25 +90,25 @@ export const base64HowTo = {
       '@type': 'HowToStep',
       name: 'Choose Mode',
       text: 'Select Text mode for encoding/decoding text strings, or File mode for uploading files (images, documents, etc.) to convert to Base64.',
-      image: 'https://devtools-hub.vercel.app/screenshots/base64-step1.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/base64-step1.png',
     },
     {
       '@type': 'HowToStep',
       name: 'Input Data',
       text: 'For Text mode: type or paste your text. For File mode: click the upload area or drag and drop your file. Files are processed instantly in your browser.',
-      image: 'https://devtools-hub.vercel.app/screenshots/base64-step2.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/base64-step2.png',
     },
     {
       '@type': 'HowToStep',
       name: 'Encode or Decode',
       text: 'Click the Encode button to convert to Base64, or Decode to convert Base64 back to original data. Results appear immediately with syntax highlighting.',
-      image: 'https://devtools-hub.vercel.app/screenshots/base64-step3.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/base64-step3.png',
     },
     {
       '@type': 'HowToStep',
       name: 'Copy or Download',
       text: 'Use the Copy button to copy the Base64 string to clipboard, or Download button to save decoded files. For images, you\'ll see a preview before downloading.',
-      image: 'https://devtools-hub.vercel.app/screenshots/base64-step4.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/base64-step4.png',
     },
   ],
 }

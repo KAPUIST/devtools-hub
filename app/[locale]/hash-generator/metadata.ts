@@ -30,7 +30,7 @@ export const hashGeneratorStructuredData = {
     'No login required',
     'Privacy-first (client-side processing)',
   ],
-  screenshot: 'https://devtools-hub.vercel.app/screenshots/hash-generator.png',
+  screenshot: 'https://devtools-hub-app.vercel.app/screenshots/hash-generator.png',
 }
 
 // FAQ for AEO
@@ -92,25 +92,25 @@ export const hashGeneratorHowTo = {
       '@type': 'HowToStep',
       name: 'Choose Hash Algorithm',
       text: 'Select your desired hash algorithm: MD5, SHA-1, SHA-256, SHA-384, or SHA-512. For security applications, SHA-256 or SHA-512 is recommended. MD5 and SHA-1 should only be used for checksums.',
-      image: 'https://devtools-hub.vercel.app/screenshots/hash-step1.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/hash-step1.png',
     },
     {
       '@type': 'HowToStep',
       name: 'Input Data',
       text: 'Choose between Text mode (type or paste text) or File mode (upload files via drag-and-drop or browse). Files are processed locally in your browser for privacy.',
-      image: 'https://devtools-hub.vercel.app/screenshots/hash-step2.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/hash-step2.png',
     },
     {
       '@type': 'HowToStep',
       name: 'Generate Hash',
       text: 'Click Generate to calculate the hash. The result appears instantly with the hash value displayed in your chosen format (hexadecimal or base64).',
-      image: 'https://devtools-hub.vercel.app/screenshots/hash-step3.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/hash-step3.png',
     },
     {
       '@type': 'HowToStep',
       name: 'Copy Hash',
       text: 'Use the Copy button to copy the generated hash to your clipboard. You can then use it for password storage, file verification, or other applications.',
-      image: 'https://devtools-hub.vercel.app/screenshots/hash-step4.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/hash-step4.png',
     },
   ],
 }

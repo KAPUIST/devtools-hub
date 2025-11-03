@@ -30,7 +30,7 @@ export const colorConverterStructuredData = {
     'No login required',
     'Works offline',
   ],
-  screenshot: 'https://devtools-hub.vercel.app/screenshots/color-converter.png',
+  screenshot: 'https://devtools-hub-app.vercel.app/screenshots/color-converter.png',
 }
 
 // FAQ for AEO
@@ -92,25 +92,25 @@ export const colorConverterHowTo = {
       '@type': 'HowToStep',
       name: 'Enter Color',
       text: 'Enter your color in any format: HEX (#FF5733), RGB (rgb(255, 87, 51)), HSL (hsl(9, 100%, 60%)), named color (red), or use the color picker to visually select a color.',
-      image: 'https://devtools-hub.vercel.app/screenshots/color-step1.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/color-step1.png',
     },
     {
       '@type': 'HowToStep',
       name: 'View All Formats',
       text: 'The tool automatically converts your color to all supported formats: HEX, RGB, HSL, HSV, and CMYK. Each format is displayed with proper syntax for easy copying into your code.',
-      image: 'https://devtools-hub.vercel.app/screenshots/color-step2.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/color-step2.png',
     },
     {
       '@type': 'HowToStep',
       name: 'Preview Color',
       text: 'See a live preview of the color in a large swatch. This helps verify the color is correct before using it in your design or code.',
-      image: 'https://devtools-hub.vercel.app/screenshots/color-step3.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/color-step3.png',
     },
     {
       '@type': 'HowToStep',
       name: 'Copy Format',
       text: 'Click the copy button next to any format to copy it to your clipboard. You can copy HEX for CSS, RGB for graphics, or any other format you need for your project.',
-      image: 'https://devtools-hub.vercel.app/screenshots/color-step4.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/color-step4.png',
     },
   ],
 }

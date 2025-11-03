@@ -32,7 +32,7 @@ export const qrGeneratorStructuredData = {
     'No login required',
     'Privacy-first (client-side generation)',
   ],
-  screenshot: 'https://devtools-hub.vercel.app/screenshots/qr-generator.png',
+  screenshot: 'https://devtools-hub-app.vercel.app/screenshots/qr-generator.png',
 }
 
 // FAQ for AEO
@@ -94,25 +94,25 @@ export const qrGeneratorHowTo = {
       '@type': 'HowToStep',
       name: 'Select QR Code Type',
       text: 'Choose what type of QR code you want to create: URL (website links), Text (plain text), Phone (tel: links), Email (mailto: links), SMS, WiFi (network credentials), or vCard (contact information).',
-      image: 'https://devtools-hub.vercel.app/screenshots/qr-step1.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/qr-step1.png',
     },
     {
       '@type': 'HowToStep',
       name: 'Enter Data',
       text: 'Fill in the required information for your selected type. For URLs, enter the web address. For WiFi, enter SSID and password. For vCards, enter name, phone, email, etc. The tool validates your input.',
-      image: 'https://devtools-hub.vercel.app/screenshots/qr-step2.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/qr-step2.png',
     },
     {
       '@type': 'HowToStep',
       name: 'Customize Settings',
       text: 'Adjust QR code size (100-1000px) and error correction level (L/M/Q/H). Higher error correction makes QR codes more durable but larger. Medium (M) is recommended for most uses.',
-      image: 'https://devtools-hub.vercel.app/screenshots/qr-step3.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/qr-step3.png',
     },
     {
       '@type': 'HowToStep',
       name: 'Download QR Code',
       text: 'Click Generate to create your QR code. Preview it, then download as PNG (raster) or SVG (vector). PNG is good for web/screen use, SVG is best for printing and scaling without quality loss.',
-      image: 'https://devtools-hub.vercel.app/screenshots/qr-step4.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/qr-step4.png',
     },
   ],
 }

@@ -28,7 +28,7 @@ export const jwtDebuggerStructuredData = {
     'No login required',
     'Privacy-first (client-side processing)',
   ],
-  screenshot: 'https://devtools-hub.vercel.app/screenshots/jwt-debugger.png',
+  screenshot: 'https://devtools-hub-app.vercel.app/screenshots/jwt-debugger.png',
 }
 
 // FAQ for AEO
@@ -90,25 +90,25 @@ export const jwtDebuggerHowTo = {
       '@type': 'HowToStep',
       name: 'Paste JWT Token',
       text: 'Copy your JWT token from your application or API response. JWT tokens have three parts separated by dots (header.payload.signature). Paste it into the input field.',
-      image: 'https://devtools-hub.vercel.app/screenshots/jwt-step1.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/jwt-step1.png',
     },
     {
       '@type': 'HowToStep',
       name: 'View Decoded Sections',
       text: 'The tool automatically decodes the token and displays three sections: Header (algorithm and type), Payload (claims and data), and Signature (verification code). All sections are formatted as JSON for easy reading.',
-      image: 'https://devtools-hub.vercel.app/screenshots/jwt-step2.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/jwt-step2.png',
     },
     {
       '@type': 'HowToStep',
       name: 'Check Expiration',
       text: 'Look at the expiration status badge. Green "Valid" means the token is still active. Red "Expired" shows when it expired. The tool also displays human-readable times like "2 days ago" or "in 3 hours".',
-      image: 'https://devtools-hub.vercel.app/screenshots/jwt-step3.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/jwt-step3.png',
     },
     {
       '@type': 'HowToStep',
       name: 'Inspect Claims',
       text: 'Review Standard Claims (iss, sub, exp, etc.) and Custom Claims separately. Standard claims follow JWT specifications, while custom claims are application-specific data like user_id or permissions.',
-      image: 'https://devtools-hub.vercel.app/screenshots/jwt-step4.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/jwt-step4.png',
     },
   ],
 }

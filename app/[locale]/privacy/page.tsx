@@ -19,7 +19,7 @@ export default function PrivacyPolicyPage() {
             Welcome to DevTools Hub. We are committed to protecting your privacy and ensuring you have a positive experience on our website.
           </p>
           <p>
-            This Privacy Policy explains how we collect, use, and protect your information when you visit devtools-hub.vercel.app.
+            This Privacy Policy explains how we collect, use, and protect your information when you visit devtools-hub-app.vercel.app.
           </p>
         </CardContent>
       </Card>
@@ -193,7 +193,7 @@ export default function PrivacyPolicyPage() {
           <p>If you have any questions about this Privacy Policy, please contact us:</p>
           <ul className="list-disc list-inside space-y-2 ml-4 mt-4">
             <li>Email: privacy@devtools-hub.com</li>
-            <li>Website: https://devtools-hub.vercel.app</li>
+            <li>Website: https://devtools-hub-app.vercel.app</li>
           </ul>
         </CardContent>
       </Card>

@@ -24,7 +24,7 @@ export const regexTesterStructuredData = {
     'No login required',
     'Works offline',
   ],
-  screenshot: 'https://devtools-hub.vercel.app/screenshots/regex-tester.png',
+  screenshot: 'https://devtools-hub-app.vercel.app/screenshots/regex-tester.png',
 }
 
 // FAQ for AEO
@@ -78,25 +78,25 @@ export const regexTesterHowTo = {
       '@type': 'HowToStep',
       name: 'Choose or Enter Pattern',
       text: 'Select a preset pattern from 15 common patterns (Email, URL, Phone, etc.) or enter your own custom regex pattern.',
-      image: 'https://devtools-hub.vercel.app/screenshots/regex-step1.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/regex-step1.png',
     },
     {
       '@type': 'HowToStep',
       name: 'Add Test Text',
       text: 'Type or paste the text you want to test your regex pattern against.',
-      image: 'https://devtools-hub.vercel.app/screenshots/regex-step2.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/regex-step2.png',
     },
     {
       '@type': 'HowToStep',
       name: 'Set Flags',
       text: 'Choose regex flags: g (global match all), i (case-insensitive), m (multiline matching).',
-      image: 'https://devtools-hub.vercel.app/screenshots/regex-step3.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/regex-step3.png',
     },
     {
       '@type': 'HowToStep',
       name: 'View Results',
       text: 'See matched text highlighted in yellow, with capture groups displayed separately below.',
-      image: 'https://devtools-hub.vercel.app/screenshots/regex-step4.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/regex-step4.png',
     },
   ],
 }

@@ -24,7 +24,7 @@ export const jsonFormatterStructuredData = {
     'No login required',
     'Works offline',
   ],
-  screenshot: 'https://devtools-hub.vercel.app/screenshots/json-formatter.png',
+  screenshot: 'https://devtools-hub-app.vercel.app/screenshots/json-formatter.png',
 }
 
 // FAQ for AEO
@@ -78,25 +78,25 @@ export const jsonFormatterHowTo = {
       '@type': 'HowToStep',
       name: 'Paste JSON',
       text: 'Copy your minified or unformatted JSON text and paste it into the input field.',
-      image: 'https://devtools-hub.vercel.app/screenshots/json-step1.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/json-step1.png',
     },
     {
       '@type': 'HowToStep',
       name: 'Choose Indentation',
       text: 'Select your preferred indentation size: 2 spaces (compact), 4 spaces (standard), or 8 spaces (expanded).',
-      image: 'https://devtools-hub.vercel.app/screenshots/json-step2.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/json-step2.png',
     },
     {
       '@type': 'HowToStep',
       name: 'Format or Minify',
       text: 'Click "Format" to beautify your JSON or "Minify" to compress it into a single line.',
-      image: 'https://devtools-hub.vercel.app/screenshots/json-step3.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/json-step3.png',
     },
     {
       '@type': 'HowToStep',
       name: 'Copy Result',
       text: 'Click the copy button to copy the formatted JSON to your clipboard.',
-      image: 'https://devtools-hub.vercel.app/screenshots/json-step4.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/json-step4.png',
     },
   ],
 }

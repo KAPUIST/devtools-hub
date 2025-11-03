@@ -28,7 +28,7 @@ export const timestampConverterStructuredData = {
     'No login required',
     'Works offline',
   ],
-  screenshot: 'https://devtools-hub.vercel.app/screenshots/timestamp-converter.png',
+  screenshot: 'https://devtools-hub-app.vercel.app/screenshots/timestamp-converter.png',
 }
 
 // FAQ for AEO
@@ -90,25 +90,25 @@ export const timestampConverterHowTo = {
       '@type': 'HowToStep',
       name: 'Choose Conversion Direction',
       text: 'Select "Timestamp to Date" to convert Unix epoch time to human-readable date, or "Date to Timestamp" to convert a date/time to Unix timestamp.',
-      image: 'https://devtools-hub.vercel.app/screenshots/timestamp-step1.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/timestamp-step1.png',
     },
     {
       '@type': 'HowToStep',
       name: 'Input Timestamp or Date',
       text: 'For Timestamp to Date: enter Unix timestamp (seconds or milliseconds). For Date to Timestamp: select or enter a date and time. The tool auto-detects the format.',
-      image: 'https://devtools-hub.vercel.app/screenshots/timestamp-step2.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/timestamp-step2.png',
     },
     {
       '@type': 'HowToStep',
       name: 'View Conversion Results',
       text: 'See the converted result in multiple formats: ISO 8601, local time with timezone, UTC time, and relative time (e.g., "2 days ago"). The current timestamp is also displayed at the top.',
-      image: 'https://devtools-hub.vercel.app/screenshots/timestamp-step3.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/timestamp-step3.png',
     },
     {
       '@type': 'HowToStep',
       name: 'Copy Result',
       text: 'Use the Copy button to copy the timestamp or formatted date to your clipboard. You can copy different formats depending on your needs (Unix timestamp, ISO 8601, etc.).',
-      image: 'https://devtools-hub.vercel.app/screenshots/timestamp-step4.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/timestamp-step4.png',
     },
   ],
 }

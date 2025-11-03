@@ -28,7 +28,7 @@ export const uuidGeneratorStructuredData = {
     'No login required',
     'Works offline',
   ],
-  screenshot: 'https://devtools-hub.vercel.app/screenshots/uuid-generator.png',
+  screenshot: 'https://devtools-hub-app.vercel.app/screenshots/uuid-generator.png',
 }
 
 // FAQ for AEO
@@ -90,25 +90,25 @@ export const uuidGeneratorHowTo = {
       '@type': 'HowToStep',
       name: 'Choose UUID Version',
       text: 'Select between UUID v1 (timestamp-based, time-ordered) or UUID v4 (cryptographically random, recommended for most use cases). UUID v4 provides better security and privacy.',
-      image: 'https://devtools-hub.vercel.app/screenshots/uuid-step1.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/uuid-step1.png',
     },
     {
       '@type': 'HowToStep',
       name: 'Set Quantity',
       text: 'Enter the number of UUIDs you need to generate (1-50). For single UUIDs, leave it at 1. For bulk generation, increase the number up to 50 UUIDs at once.',
-      image: 'https://devtools-hub.vercel.app/screenshots/uuid-step2.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/uuid-step2.png',
     },
     {
       '@type': 'HowToStep',
       name: 'Generate UUIDs',
       text: 'Click the Generate button to create your UUIDs. They will appear instantly in a list below. Each UUID shows its version (v1 or v4) and variant information (RFC 4122).',
-      image: 'https://devtools-hub.vercel.app/screenshots/uuid-step3.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/uuid-step3.png',
     },
     {
       '@type': 'HowToStep',
       name: 'Copy UUIDs',
       text: 'Click the copy icon next to any UUID to copy it individually, or use the "Copy All" button to copy all generated UUIDs at once. UUIDs are copied one per line for easy pasting into your code or database.',
-      image: 'https://devtools-hub.vercel.app/screenshots/uuid-step4.png',
+      image: 'https://devtools-hub-app.vercel.app/screenshots/uuid-step4.png',
     },
   ],
 }
