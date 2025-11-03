@@ -259,5 +259,32 @@
       "INVALID_UUID": "Invalid UUID format",
       "PARSE_ERROR": "An error occurred while parsing UUID"
     }
+  },
+  "hashGenerator": {
+    "title": "Hash Generator",
+    "description": "Generate cryptographic hashes (SHA-1, SHA-256, SHA-384, SHA-512)",
+    "textMode": "Text",
+    "fileMode": "File",
+    "textInput": "Text Input",
+    "textInputDescription": "Enter text to generate hashes",
+    "textInputPlaceholder": "Enter text here...",
+    "fileInput": "File Input",
+    "fileInputDescription": "Upload a file to calculate hashes",
+    "dragDropFile": "Drag and drop a file here, or click to select",
+    "selectFile": "Select File",
+    "generate": "Generate Hashes",
+    "generating": "Generating...",
+    "loadExample": "Load Example",
+    "results": "Hash Results",
+    "textHashes": "Text Hashes",
+    "fileHashes": "File Hashes",
+    "deprecated": "Deprecated",
+    "securityWarning": "Security Warning",
+    "securityWarningMessage": "This tool is for learning and development purposes only. Do not use for production security.",
+    "sha1Warning": "SHA-1 is cryptographically broken and should not be used for security purposes. Use SHA-256 or higher.",
+    "tip1": "SHA-256 is recommended for most use cases (password hashing, file verification, etc.)",
+    "tip2": "SHA-1 is deprecated and should only be used for legacy compatibility",
+    "tip3": "File hashes are useful for verifying file integrity and detecting tampering",
+    "tip4": "All hash calculations are performed locally in your browser using Web Crypto API"
   }
 }

@@ -259,5 +259,32 @@
       "INVALID_UUID": "無効なUUID形式です",
       "PARSE_ERROR": "UUIDの解析中にエラーが発生しました"
     }
+  },
+  "hashGenerator": {
+    "title": "ハッシュ生成器",
+    "description": "暗号化ハッシュを生成 (SHA-1, SHA-256, SHA-384, SHA-512)",
+    "textMode": "テキスト",
+    "fileMode": "ファイル",
+    "textInput": "テキスト入力",
+    "textInputDescription": "テキストを入力してハッシュを生成",
+    "textInputPlaceholder": "テキストをここに入力...",
+    "fileInput": "ファイル入力",
+    "fileInputDescription": "ファイルをアップロードしてハッシュを計算",
+    "dragDropFile": "ファイルをここにドラッグ、またはクリックして選択",
+    "selectFile": "ファイルを選択",
+    "generate": "ハッシュを生成",
+    "generating": "生成中...",
+    "loadExample": "サンプルを読み込む",
+    "results": "ハッシュ結果",
+    "textHashes": "テキストハッシュ",
+    "fileHashes": "ファイルハッシュ",
+    "deprecated": "非推奨",
+    "securityWarning": "セキュリティ警告",
+    "securityWarningMessage": "このツールは学習および開発目的でのみ使用してください。本番環境のセキュリティには使用しないでください。",
+    "sha1Warning": "SHA-1は暗号学的に安全ではなく、セキュリティ目的で使用すべきではありません。SHA-256以上を使用してください。",
+    "tip1": "SHA-256はほとんどの用途（パスワードハッシング、ファイル検証など）に推奨されます",
+    "tip2": "SHA-1は非推奨であり、レガシー互換性のためにのみ使用すべきです",
+    "tip3": "ファイルハッシュはファイルの整合性検証や改ざん検出に役立ちます",
+    "tip4": "すべてのハッシュ計算はWeb Crypto APIを使用してブラウザでローカルに実行されます"
   }
 }

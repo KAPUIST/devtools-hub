@@ -259,5 +259,32 @@
       "INVALID_UUID": "无效的UUID格式",
       "PARSE_ERROR": "解析UUID时发生错误"
     }
+  },
+  "hashGenerator": {
+    "title": "哈希生成器",
+    "description": "生成加密哈希 (SHA-1, SHA-256, SHA-384, SHA-512)",
+    "textMode": "文本",
+    "fileMode": "文件",
+    "textInput": "文本输入",
+    "textInputDescription": "输入文本生成哈希",
+    "textInputPlaceholder": "在此输入文本...",
+    "fileInput": "文件输入",
+    "fileInputDescription": "上传文件计算哈希",
+    "dragDropFile": "拖放文件到此处，或点击选择",
+    "selectFile": "选择文件",
+    "generate": "生成哈希",
+    "generating": "生成中...",
+    "loadExample": "加载示例",
+    "results": "哈希结果",
+    "textHashes": "文本哈希",
+    "fileHashes": "文件哈希",
+    "deprecated": "已弃用",
+    "securityWarning": "安全警告",
+    "securityWarningMessage": "此工具仅用于学习和开发目的。请勿用于生产环境安全。",
+    "sha1Warning": "SHA-1在加密学上已被破解，不应用于安全目的。请使用SHA-256或更高版本。",
+    "tip1": "SHA-256适用于大多数用途（密码哈希、文件验证等）",
+    "tip2": "SHA-1已被弃用，仅应用于遗留兼容性",
+    "tip3": "文件哈希对于验证文件完整性和检测篡改很有用",
+    "tip4": "所有哈希计算都使用Web Crypto API在浏览器中本地执行"
   }
 }
