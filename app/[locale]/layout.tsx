@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { locales } from '@/i18n/request';
 import { Header } from "@/components/layout/Header";
 import { Sidebar } from "@/components/layout/Sidebar";
+import { Footer } from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { CommandPalette } from "@/components/CommandPalette";
 
@@ -48,6 +49,7 @@ export default async function LocaleLayout({
               {children}
             </main>
           </div>
+          <Footer />
           <CommandPalette />
         </div>
       </ThemeProvider>
