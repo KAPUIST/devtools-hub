@@ -322,6 +322,20 @@ style: 스타일 변경
 refactor: 리팩토링
 test: 테스트
 chore: 기타
+
+# ⚠️ 커밋 메시지 금지 사항
+# 절대 포함하지 말 것:
+# - "🤖 Generated with [Claude Code]" 같은 홍보 문구
+# - "Co-Authored-By: Claude" 같은 AI 도구 표시
+# - "Commit README update" 같은 불필요한 설명
+#
+# ✅ 좋은 예시:
+# docs: Update README roadmap - mark UUID Generator as completed
+#
+# ❌ 나쁜 예시:
+# docs: Update README
+# 🤖 Generated with Claude Code
+# Co-Authored-By: Claude <noreply@anthropic.com>
 ```
 
 ---

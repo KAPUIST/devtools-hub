@@ -235,7 +235,7 @@ devtools-hub/
 - [x] URL Encoder/Decoder (쿼리 파서!)
 
 ### 🚧 Week 2: 추가 도구 (진행 중)
-- [ ] UUID Generator
+- [x] UUID Generator ✅
 - [ ] Hash Generator (MD5, SHA256)
 - [ ] Vercel 배포
 - [ ] SEO 최적화
