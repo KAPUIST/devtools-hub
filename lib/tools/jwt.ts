@@ -28,6 +28,12 @@ export interface JWTDecodeResult {
   notBefore?: string
 }
 
+export interface JWTVerifyResult {
+  success: boolean
+  verified?: boolean  // true = 서명 유효, false = 서명 무효
+  errorCode?: 'EMPTY_TOKEN' | 'EMPTY_SECRET' | 'INVALID_TOKEN' | 'ALGORITHM_MISMATCH' | 'VERIFICATION_ERROR'
+}
+
 /**
  * Base64 URL 디코딩 (JWT는 Base64 URL 인코딩 사용)
  */
@@ -220,4 +226,135 @@ export function extractCustomClaims(payload: JWTPayload): { key: string; value: 
   return Object.entries(payload)
     .filter(([key]) => !standardKeys.includes(key))
     .map(([key, value]) => ({ key, value }))
+}
+
+/**
+ * JWT 서명 검증
+ * @param token - JWT 토큰
+ * @param secret - Secret Key (HS256/384/512) 또는 Public Key (RS256/384/512, ES256/384/512)
+ */
+export async function verifyJWTSignature(token: string, secret: string): Promise<JWTVerifyResult> {
+  // 입력 검증
+  if (!token || !token.trim()) {
+    return {
+      success: false,
+      errorCode: 'EMPTY_TOKEN',
+    }
+  }
+
+  if (!secret || !secret.trim()) {
+    return {
+      success: false,
+      errorCode: 'EMPTY_SECRET',
+    }
+  }
+
+  try {
+    // jose 라이브러리 동적 임포트 (브라우저 호환성)
+    const jose = await import('jose')
+
+    // JWT 토큰에서 Header 추출 (알고리즘 감지)
+    const decodedResult = decodeJWT(token.trim())
+    if (!decodedResult.success || !decodedResult.header?.alg) {
+      return {
+        success: false,
+        errorCode: 'INVALID_TOKEN',
+      }
+    }
+
+    const algorithm = decodedResult.header.alg
+
+    // 알고리즘별 서명 검증
+    if (algorithm.startsWith('HS')) {
+      // HMAC (HS256, HS384, HS512) - Secret Key 사용
+      const secretKey = new TextEncoder().encode(secret.trim())
+
+      try {
+        await jose.jwtVerify(token.trim(), secretKey, {
+          algorithms: [algorithm],
+        })
+
+        return {
+          success: true,
+          verified: true,
+        }
+      } catch (error) {
+        // 서명 검증 실패 (잘못된 서명 또는 만료된 토큰)
+        if (error instanceof Error) {
+          // JWTExpired는 서명이 유효하지만 만료된 경우
+          if (error.name === 'JWTExpired') {
+            return {
+              success: true,
+              verified: true,
+            }
+          }
+
+          // 서명이 유효하지 않은 경우
+          if (error.name === 'JWSSignatureVerificationFailed') {
+            return {
+              success: true,
+              verified: false,
+            }
+          }
+        }
+
+        throw error
+      }
+    } else if (algorithm.startsWith('RS') || algorithm.startsWith('ES') || algorithm.startsWith('PS')) {
+      // RSA/ECDSA/RSA-PSS (RS256/384/512, ES256/384/512, PS256/384/512) - Public Key 사용
+      try {
+        const publicKey = await jose.importSPKI(secret.trim(), algorithm)
+
+        try {
+          await jose.jwtVerify(token.trim(), publicKey, {
+            algorithms: [algorithm],
+          })
+
+          return {
+            success: true,
+            verified: true,
+          }
+        } catch (error) {
+          // 서명 검증 실패
+          if (error instanceof Error) {
+            // JWTExpired는 서명이 유효하지만 만료된 경우
+            if (error.name === 'JWTExpired') {
+              return {
+                success: true,
+                verified: true,
+              }
+            }
+
+            // 서명이 유효하지 않은 경우
+            if (error.name === 'JWSSignatureVerificationFailed') {
+              return {
+                success: true,
+                verified: false,
+              }
+            }
+          }
+
+          throw error
+        }
+      } catch (error) {
+        // Public Key 임포트 실패
+        return {
+          success: false,
+          errorCode: 'ALGORITHM_MISMATCH',
+        }
+      }
+    } else {
+      // 지원하지 않는 알고리즘
+      return {
+        success: false,
+        errorCode: 'ALGORITHM_MISMATCH',
+      }
+    }
+  } catch (error) {
+    // 예상치 못한 오류
+    return {
+      success: false,
+      errorCode: 'VERIFICATION_ERROR',
+    }
+  }
 }

@@ -42,7 +42,7 @@ const tools = [
   },
   {
     title: "Unix Timestamp",
-    href: "/unix-time",
+    href: "/timestamp",
     icon: Clock,
     tier: 2,
   },

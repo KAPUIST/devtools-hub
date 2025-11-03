@@ -11,8 +11,10 @@ import {
   getTimeRemaining,
   extractStandardClaims,
   extractCustomClaims,
+  verifyJWTSignature,
+  type JWTVerifyResult,
 } from "@/lib/tools/jwt"
-import { Check, Copy, AlertCircle, Clock, Shield, FileJson } from "lucide-react"
+import { Check, Copy, AlertCircle, Clock, Shield, FileJson, RefreshCw, X } from "lucide-react"
 
 export default function JWTDebuggerPage() {
   const t = useTranslations()
@@ -20,13 +22,18 @@ export default function JWTDebuggerPage() {
   const [error, setError] = useState<string | null>(null)
   const [decodedResult, setDecodedResult] = useState<ReturnType<typeof decodeJWT> | null>(null)
   const [copied, setCopied] = useState<'header' | 'payload' | null>(null)
+  const [secret, setSecret] = useState("")
+  const [verifyResult, setVerifyResult] = useState<JWTVerifyResult | null>(null)
+  const [isVerifying, setIsVerifying] = useState(false)
 
-  // 예시 JWT 토큰 (유효 기간: 2099년)
-  const exampleToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiZW1haWwiOiJqb2huQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNTE2MjM5MDIyLCJleHAiOjQxMDI0NDQ4MDB9.hxhGCPITnGZwW_Bd8GwZ3rz4X8YGAqH6-VRjYBqMRnQ"
+  // 예시 JWT 토큰 (유효 기간: 2099년) + Secret Key
+  const exampleToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiZW1haWwiOiJqb2huQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNTE2MjM5MDIyLCJleHAiOjQxMDI0NDQ4MDB9.l5TxjKfGtnr0CUBaKx_Z1sQFrdnQho60gQmNghbDaek"
+  const exampleSecret = "your-256-bit-secret"
 
   useEffect(() => {
-    // 초기 예시 토큰 설정
+    // 초기 예시 토큰 + Secret Key 설정
     setToken(exampleToken)
+    setSecret(exampleSecret)
     handleDecode(exampleToken)
   }, [])
 
@@ -65,6 +72,39 @@ export default function JWTDebuggerPage() {
   const handleInputChange = (value: string) => {
     setToken(value)
     handleDecode(value)
+    // 토큰 변경 시 검증 결과 초기화
+    setVerifyResult(null)
+  }
+
+  const handleVerify = async () => {
+    if (!token.trim() || !secret.trim()) return
+
+    setIsVerifying(true)
+    try {
+      const result = await verifyJWTSignature(token, secret)
+      setVerifyResult(result)
+    } catch (error) {
+      setVerifyResult({
+        success: false,
+        errorCode: 'VERIFICATION_ERROR',
+      })
+    } finally {
+      setIsVerifying(false)
+    }
+  }
+
+  const getErrorMessage = (errorCode?: string): string => {
+    if (!errorCode) return t('common.error')
+
+    const errorMap: Record<string, string> = {
+      'EMPTY_TOKEN': t('jwtDebugger.invalidToken'),
+      'EMPTY_SECRET': t('jwtDebugger.errors.emptySecret'),
+      'INVALID_TOKEN': t('jwtDebugger.invalidToken'),
+      'ALGORITHM_MISMATCH': t('jwtDebugger.errors.algorithmMismatch'),
+      'VERIFICATION_ERROR': t('jwtDebugger.errors.verificationError'),
+    }
+
+    return errorMap[errorCode] || t('common.error')
   }
 
   // 토큰 상태 배지
@@ -297,22 +337,122 @@ export default function JWTDebuggerPage() {
         </div>
       )}
 
-      {/* Signature (if decoded) */}
+      {/* Signature & Verification (if decoded) */}
       {decodedResult && decodedResult.success && decodedResult.signature && (
         <Card>
           <CardHeader>
             <CardTitle className="text-lg flex items-center gap-2">
-              <FileJson className="h-5 w-5" />
+              <Shield className="h-5 w-5" />
               {t('jwtDebugger.signature')}
             </CardTitle>
-            <CardDescription>Base64 URL Encoded</CardDescription>
+            <CardDescription>
+              {t('jwtDebugger.algorithmDetected')}: {decodedResult.header?.alg || 'Unknown'}
+            </CardDescription>
           </CardHeader>
-          <CardContent>
-            <Textarea
-              value={decodedResult.signature}
-              readOnly
-              className="min-h-[80px] font-mono text-xs"
-            />
+          <CardContent className="space-y-4">
+            {/* Signature Display */}
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-muted-foreground">
+                Base64 URL Encoded
+              </label>
+              <Textarea
+                value={decodedResult.signature}
+                readOnly
+                className="min-h-[80px] font-mono text-xs bg-muted"
+              />
+            </div>
+
+            {/* Divider */}
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-background px-2 text-muted-foreground">
+                  {t('jwtDebugger.verifySignature')}
+                </span>
+              </div>
+            </div>
+
+            {/* Security Warning */}
+            <div className="flex items-start gap-2 rounded-lg border border-yellow-500/50 bg-yellow-500/10 p-3">
+              <AlertCircle className="h-5 w-5 text-yellow-600 dark:text-yellow-500 flex-shrink-0 mt-0.5" />
+              <div className="space-y-1">
+                <p className="text-sm font-medium text-yellow-600 dark:text-yellow-500">
+                  {t('jwtDebugger.securityWarning')}
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  {t('jwtDebugger.securityWarningMessage')}
+                </p>
+              </div>
+            </div>
+
+            {/* Secret/Key Input */}
+            <div className="space-y-2">
+              <label className="text-sm font-medium">
+                {t('jwtDebugger.secretKey')}
+              </label>
+              <Textarea
+                value={secret}
+                onChange={(e) => setSecret(e.target.value)}
+                placeholder={t('jwtDebugger.secretPlaceholder')}
+                className="min-h-[120px] font-mono text-sm"
+              />
+            </div>
+
+            {/* Verify Button */}
+            <Button
+              onClick={handleVerify}
+              disabled={!secret.trim() || isVerifying}
+              className="w-full"
+            >
+              {isVerifying ? (
+                <>
+                  <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                  Verifying...
+                </>
+              ) : (
+                <>
+                  <Shield className="h-4 w-4 mr-2" />
+                  {t('jwtDebugger.verifyButton')}
+                </>
+              )}
+            </Button>
+
+            {/* Verification Result */}
+            {verifyResult && !isVerifying && (
+              <div>
+                {verifyResult.success && verifyResult.verified && (
+                  <div className="flex items-center gap-2 rounded-lg border border-green-500/50 bg-green-500/10 p-3">
+                    <Check className="h-5 w-5 text-green-600 dark:text-green-500" />
+                    <span className="text-sm font-medium text-green-600 dark:text-green-500">
+                      {t('jwtDebugger.signatureVerified')}
+                    </span>
+                  </div>
+                )}
+                {verifyResult.success && !verifyResult.verified && (
+                  <div className="flex items-center gap-2 rounded-lg border border-destructive/50 bg-destructive/10 p-3">
+                    <X className="h-5 w-5 text-destructive" />
+                    <span className="text-sm font-medium text-destructive">
+                      {t('jwtDebugger.signatureInvalid')}
+                    </span>
+                  </div>
+                )}
+                {!verifyResult.success && (
+                  <div className="flex items-start gap-2 rounded-lg border border-yellow-500/50 bg-yellow-500/10 p-3">
+                    <AlertCircle className="h-5 w-5 text-yellow-600 dark:text-yellow-500" />
+                    <div className="space-y-1">
+                      <p className="text-sm font-medium text-yellow-600 dark:text-yellow-500">
+                        {t('jwtDebugger.verificationFailed')}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        {getErrorMessage(verifyResult.errorCode)}
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
           </CardContent>
         </Card>
       )}
@@ -327,6 +467,8 @@ export default function JWTDebuggerPage() {
           <p>• {t('jwtDebugger.tip2')}</p>
           <p>• {t('jwtDebugger.tip3')}</p>
           <p>• {t('jwtDebugger.tip4')}</p>
+          <p>• {t('jwtDebugger.tip5')}</p>
+          <p>• {t('jwtDebugger.tip6')}</p>
         </CardContent>
       </Card>
     </div>
