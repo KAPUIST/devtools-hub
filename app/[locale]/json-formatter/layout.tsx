@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { jsonFormatterStructuredData, jsonFormatterFAQ, jsonFormatterHowTo } from './metadata'
 
 export const metadata: Metadata = {
   title: 'JSON Formatter - Format, Validate & Minify JSON Online',
@@ -30,5 +31,28 @@ export default function JsonFormatterLayout({
 }: {
   children: React.ReactNode
 }) {
-  return children
+  return (
+    <>
+      {/* Structured Data for AEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonFormatterStructuredData),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonFormatterFAQ),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonFormatterHowTo),
+        }}
+      />
+      {children}
+    </>
+  )
 }
