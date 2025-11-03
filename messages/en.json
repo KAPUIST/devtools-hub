@@ -311,5 +311,31 @@
       "INVALID_HSL": "Invalid HSL color. Must be hsl(h, s%, l%) with H(0-360), S(0-100%), L(0-100%)",
       "PARSE_ERROR": "An error occurred while parsing color"
     }
+  },
+  "qrGenerator": {
+    "title": "QR Code Generator",
+    "description": "Generate QR codes from text, URLs, WiFi credentials, and more",
+    "input": "Input",
+    "inputDescription": "Enter text or URL to generate QR code",
+    "textOrUrl": "Text or URL",
+    "inputPlaceholder": "Enter text, URL, email, phone number, WiFi credentials...",
+    "examples": "Examples",
+    "size": "Size",
+    "sizeSmall": "Small",
+    "sizeMedium": "Medium",
+    "sizeLarge": "Large",
+    "errorCorrection": "Error Correction Level",
+    "preview": "QR Code Preview",
+    "download": "Download PNG",
+    "copyDataURL": "Copy Data URL",
+    "tip1": "QR codes can store text, URLs, email addresses, phone numbers, WiFi credentials, and more",
+    "tip2": "Higher error correction levels allow the QR code to be readable even if partially damaged",
+    "tip3": "Medium size (256x256) and M error correction level are recommended for most use cases",
+    "tip4": "Click Download to save the QR code as a PNG image file",
+    "errors": {
+      "EMPTY_INPUT": "Input is empty. Please enter text or URL.",
+      "GENERATION_ERROR": "Failed to generate QR code. Please try again.",
+      "INVALID_OPTIONS": "Invalid QR code options."
+    }
   }
 }

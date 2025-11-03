@@ -311,5 +311,31 @@
       "INVALID_HSL": "无效的HSL颜色。必须是hsl(h, s%, l%)格式，H(0-360)、S(0-100%)、L(0-100%)",
       "PARSE_ERROR": "解析颜色时发生错误"
     }
+  },
+  "qrGenerator": {
+    "title": "QR码生成器",
+    "description": "从文本、URL、WiFi信息等生成QR码",
+    "input": "输入",
+    "inputDescription": "输入要生成QR码的文本或URL",
+    "textOrUrl": "文本或URL",
+    "inputPlaceholder": "输入文本、URL、邮箱、电话号码、WiFi信息等...",
+    "examples": "示例",
+    "size": "大小",
+    "sizeSmall": "小",
+    "sizeMedium": "中",
+    "sizeLarge": "大",
+    "errorCorrection": "错误纠正级别",
+    "preview": "QR码预览",
+    "download": "下载PNG",
+    "copyDataURL": "复制Data URL",
+    "tip1": "QR码可以存储文本、URL、邮箱地址、电话号码、WiFi信息等",
+    "tip2": "使用更高的错误纠正级别可以使QR码在部分损坏时仍可读取",
+    "tip3": "大多数情况下推荐使用中等大小(256x256)和M错误纠正级别",
+    "tip4": "点击下载可将QR码保存为PNG图像文件",
+    "errors": {
+      "EMPTY_INPUT": "输入为空。请输入文本或URL。",
+      "GENERATION_ERROR": "生成QR码失败。请重试。",
+      "INVALID_OPTIONS": "无效的QR码选项。"
+    }
   }
 }

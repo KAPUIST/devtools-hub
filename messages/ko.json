@@ -311,5 +311,31 @@
       "INVALID_HSL": "올바르지 않은 HSL 색상입니다. hsl(h, s%, l%) 형식이어야 하며 H(0-360), S(0-100%), L(0-100%) 범위입니다",
       "PARSE_ERROR": "색상 파싱 중 오류가 발생했습니다"
     }
+  },
+  "qrGenerator": {
+    "title": "QR 코드 생성기",
+    "description": "텍스트, URL, WiFi 정보 등으로 QR 코드 생성",
+    "input": "입력",
+    "inputDescription": "QR 코드를 생성할 텍스트나 URL을 입력하세요",
+    "textOrUrl": "텍스트 또는 URL",
+    "inputPlaceholder": "텍스트, URL, 이메일, 전화번호, WiFi 정보 등을 입력하세요...",
+    "examples": "예시",
+    "size": "크기",
+    "sizeSmall": "작게",
+    "sizeMedium": "중간",
+    "sizeLarge": "크게",
+    "errorCorrection": "오류 보정 레벨",
+    "preview": "QR 코드 미리보기",
+    "download": "PNG 다운로드",
+    "copyDataURL": "Data URL 복사",
+    "tip1": "QR 코드는 텍스트, URL, 이메일 주소, 전화번호, WiFi 정보 등을 저장할 수 있습니다",
+    "tip2": "높은 오류 보정 레벨을 사용하면 QR 코드가 부분적으로 손상되어도 읽을 수 있습니다",
+    "tip3": "대부분의 경우 중간 크기(256x256)와 M 오류 보정 레벨이 권장됩니다",
+    "tip4": "다운로드를 클릭하면 QR 코드를 PNG 이미지 파일로 저장할 수 있습니다",
+    "errors": {
+      "EMPTY_INPUT": "입력이 비어있습니다. 텍스트나 URL을 입력해주세요.",
+      "GENERATION_ERROR": "QR 코드 생성에 실패했습니다. 다시 시도해주세요.",
+      "INVALID_OPTIONS": "올바르지 않은 QR 코드 옵션입니다."
+    }
   }
 }

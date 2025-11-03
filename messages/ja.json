@@ -311,5 +311,31 @@
       "INVALID_HSL": "無効なHSL色です。hsl(h, s%, l%)形式で、H(0-360)、S(0-100%)、L(0-100%)の範囲である必要があります",
       "PARSE_ERROR": "色の解析中にエラーが発生しました"
     }
+  },
+  "qrGenerator": {
+    "title": "QRコード生成ツール",
+    "description": "テキスト、URL、WiFi情報などからQRコードを生成",
+    "input": "入力",
+    "inputDescription": "QRコードを生成するテキストまたはURLを入力してください",
+    "textOrUrl": "テキストまたはURL",
+    "inputPlaceholder": "テキスト、URL、メール、電話番号、WiFi情報などを入力してください...",
+    "examples": "サンプル",
+    "size": "サイズ",
+    "sizeSmall": "小",
+    "sizeMedium": "中",
+    "sizeLarge": "大",
+    "errorCorrection": "エラー訂正レベル",
+    "preview": "QRコードプレビュー",
+    "download": "PNGダウンロード",
+    "copyDataURL": "Data URLコピー",
+    "tip1": "QRコードはテキスト、URL、メールアドレス、電話番号、WiFi情報などを保存できます",
+    "tip2": "高いエラー訂正レベルを使用すると、QRコードが部分的に破損しても読み取り可能になります",
+    "tip3": "ほとんどの場合、中サイズ(256x256)とMエラー訂正レベルが推奨されます",
+    "tip4": "ダウンロードをクリックするとQRコードをPNG画像ファイルとして保存できます",
+    "errors": {
+      "EMPTY_INPUT": "入力が空です。テキストまたはURLを入力してください。",
+      "GENERATION_ERROR": "QRコードの生成に失敗しました。もう一度お試しください。",
+      "INVALID_OPTIONS": "無効なQRコードオプションです。"
+    }
   }
 }
