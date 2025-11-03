@@ -287,5 +287,29 @@
     "tip2": "SHA-1 is deprecated and should only be used for legacy compatibility",
     "tip3": "File hashes are useful for verifying file integrity and detecting tampering",
     "tip4": "All hash calculations are performed locally in your browser using Web Crypto API"
+  },
+  "colorConverter": {
+    "title": "Color Converter",
+    "description": "Convert colors between HEX, RGB, and HSL formats",
+    "input": "Color Input",
+    "inputDescription": "Enter a color in any format (HEX, RGB, or HSL)",
+    "inputPlaceholder": "Enter color (e.g., #FF5733, rgb(255, 87, 51), hsl(9, 100%, 60%))...",
+    "colorPicker": "Color Picker",
+    "examples": "Example Colors",
+    "results": "Conversion Results",
+    "preview": "Color Preview",
+    "rgbValues": "RGB Values",
+    "hslValues": "HSL Values",
+    "tip1": "Supports HEX (#FF5733 or FF5733), RGB (rgb(255, 87, 51)), and HSL (hsl(9, 100%, 60%)) formats",
+    "tip2": "Use the color picker for easy color selection",
+    "tip3": "RGB values range from 0-255, HSL values are H(0-360), S(0-100%), L(0-100%)",
+    "tip4": "Click any format to copy to clipboard",
+    "errors": {
+      "INVALID_FORMAT": "Invalid color format. Please use HEX, RGB, or HSL format.",
+      "INVALID_HEX": "Invalid HEX color. Must be 3 or 6 characters (e.g., #FFF or #FFFFFF)",
+      "INVALID_RGB": "Invalid RGB color. Must be rgb(r, g, b) with values 0-255",
+      "INVALID_HSL": "Invalid HSL color. Must be hsl(h, s%, l%) with H(0-360), S(0-100%), L(0-100%)",
+      "PARSE_ERROR": "An error occurred while parsing color"
+    }
   }
 }

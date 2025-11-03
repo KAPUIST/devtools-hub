@@ -287,5 +287,29 @@
     "tip2": "SHA-1已被弃用，仅应用于遗留兼容性",
     "tip3": "文件哈希对于验证文件完整性和检测篡改很有用",
     "tip4": "所有哈希计算都使用Web Crypto API在浏览器中本地执行"
+  },
+  "colorConverter": {
+    "title": "颜色转换器",
+    "description": "在HEX、RGB和HSL格式之间转换颜色",
+    "input": "颜色输入",
+    "inputDescription": "以任意格式输入颜色 (HEX、RGB或HSL)",
+    "inputPlaceholder": "输入颜色 (例如: #FF5733, rgb(255, 87, 51), hsl(9, 100%, 60%))...",
+    "colorPicker": "颜色选择器",
+    "examples": "示例颜色",
+    "results": "转换结果",
+    "preview": "颜色预览",
+    "rgbValues": "RGB值",
+    "hslValues": "HSL值",
+    "tip1": "支持HEX (#FF5733或FF5733)、RGB (rgb(255, 87, 51))和HSL (hsl(9, 100%, 60%)) 格式",
+    "tip2": "使用颜色选择器可以轻松选择颜色",
+    "tip3": "RGB值范围为0-255，HSL值为H(0-360)、S(0-100%)、L(0-100%)",
+    "tip4": "点击任意格式即可复制到剪贴板",
+    "errors": {
+      "INVALID_FORMAT": "无效的颜色格式。请使用HEX、RGB或HSL格式。",
+      "INVALID_HEX": "无效的HEX颜色。必须是3位或6位 (例如: #FFF或#FFFFFF)",
+      "INVALID_RGB": "无效的RGB颜色。必须是rgb(r, g, b)格式，值范围为0-255",
+      "INVALID_HSL": "无效的HSL颜色。必须是hsl(h, s%, l%)格式，H(0-360)、S(0-100%)、L(0-100%)",
+      "PARSE_ERROR": "解析颜色时发生错误"
+    }
   }
 }
