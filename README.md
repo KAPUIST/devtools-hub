@@ -236,7 +236,7 @@ devtools-hub/
 
 ### 🚧 Week 2: 추가 도구 (진행 중)
 - [x] UUID Generator ✅
-- [ ] Hash Generator (MD5, SHA256)
+- [x] Hash Generator (SHA-1, SHA-256, SHA-384, SHA-512) ✅
 - [ ] Vercel 배포
 - [ ] SEO 최적화
 
