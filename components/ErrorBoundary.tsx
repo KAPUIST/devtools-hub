@@ -69,7 +69,7 @@ export class ErrorBoundary extends Component<Props, State> {
                   <li>Try refreshing the page</li>
                   <li>Go back to the home page</li>
                   <li>Clear your browser cache</li>
-                  <li>If the problem persists, report it on GitHub</li>
+                  <li>If the problem persists, please try again later</li>
                 </ul>
               </div>
 

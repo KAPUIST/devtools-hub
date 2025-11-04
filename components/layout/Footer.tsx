@@ -23,15 +23,6 @@ export function Footer() {
             >
               Privacy Policy
             </Link>
-            <span>•</span>
-            <a
-              href="https://github.com/KAPUIST/devtools-hub"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors"
-            >
-              GitHub
-            </a>
           </nav>
         </div>
       </div>
