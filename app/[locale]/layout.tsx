@@ -21,11 +21,8 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params;
 
-  console.log('[DEBUG] LocaleLayout - locale:', locale, 'locales:', locales, 'includes:', locales.includes(locale as any));
-
   // Ensure that the incoming `locale` is valid
   if (!locales.includes(locale as (typeof locales)[number])) {
-    console.log('[DEBUG] LocaleLayout - calling notFound() for locale:', locale);
     notFound();
   }
 

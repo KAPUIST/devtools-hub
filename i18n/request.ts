@@ -18,11 +18,8 @@ export default getRequestConfig(async ({ requestLocale }) => {
   // Next.js 16에서는 requestLocale을 await 해야 함
   const locale = await requestLocale;
 
-  console.log('[DEBUG] getRequestConfig - locale:', locale, 'type:', typeof locale, 'locales:', locales, 'includes:', locales.includes(locale as Locale));
-
   // Validate that the incoming `locale` parameter is valid
   if (!locale || !locales.includes(locale as Locale)) {
-    console.log('[DEBUG] getRequestConfig - invalid locale:', locale, '- using defaultLocale:', defaultLocale);
     // 잘못된 locale은 기본값 사용
     return {
       locale: defaultLocale,
@@ -30,7 +27,6 @@ export default getRequestConfig(async ({ requestLocale }) => {
     };
   }
 
-  console.log('[DEBUG] getRequestConfig - loading messages for locale:', locale);
   return {
     locale,
     messages: (await import(`../messages/${locale}.json`)).default

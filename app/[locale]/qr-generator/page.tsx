@@ -40,37 +40,31 @@ export default function QRGeneratorPage() {
 
   // Generate QR code when input changes
   useEffect(() => {
-    if (input.trim()) {
-      handleGenerate()
-    } else {
-      setQrCodeDataURL(null)
+    const generateQR = async () => {
+      if (!input.trim()) {
+        setQrCodeDataURL(null)
+        setError(null)
+        return
+      }
+
+      setIsGenerating(true)
       setError(null)
-    }
-  }, [input, size, errorCorrection])
 
-  // Generate QR code
-  const handleGenerate = async () => {
-    if (!input.trim()) {
-      setError(t('qrGenerator.errors.EMPTY_INPUT'))
-      setQrCodeDataURL(null)
-      return
-    }
+      const result = await generateQRCode(input, { size, errorCorrectionLevel: errorCorrection })
 
-    setIsGenerating(true)
-    setError(null)
+      if (result.success && result.dataURL) {
+        setQrCodeDataURL(result.dataURL)
+        setError(null)
+      } else {
+        setQrCodeDataURL(null)
+        setError(t(`qrGenerator.errors.${result.errorCode ?? 'GENERATION_ERROR'}`))
+      }
 
-    const result = await generateQRCode(input, { size, errorCorrectionLevel: errorCorrection })
-
-    if (result.success && result.dataURL) {
-      setQrCodeDataURL(result.dataURL)
-      setError(null)
-    } else {
-      setQrCodeDataURL(null)
-      setError(t(`qrGenerator.errors.${result.errorCode ?? 'GENERATION_ERROR'}`))
+      setIsGenerating(false)
     }
 
-    setIsGenerating(false)
-  }
+    generateQR()
+  }, [input, size, errorCorrection, t])
 
   // Download QR code
   const handleDownload = () => {
