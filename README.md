@@ -79,6 +79,8 @@ A collection of developer tools with best-in-class UX/DX. No signup required, in
 ### Core UX Features
 - **Command Palette** (Cmd+K) for quick tool access
 - **Keyboard Shortcuts Modal** (Cmd+/ or ?) shows all available shortcuts
+- **Local History** stores last 10 operations per tool with favorites support
+- **Smart Paste Detection** auto-detects 6 content types (JSON, JWT, Base64, URL, Timestamp, UUID) and redirects
 - **Error Boundary** catches runtime errors with friendly recovery options
 - **Loading States** with skeleton screens for better perceived performance
 - **Dark mode** with system preference detection
@@ -95,6 +97,9 @@ A collection of developer tools with best-in-class UX/DX. No signup required, in
 - **Internationalization**: next-intl
 - **Theme**: next-themes
 - **Icons**: lucide-react
+- **Toast Notifications**: sonner
+- **Date Formatting**: date-fns
+- **ID Generation**: nanoid
 - **Deployment**: Vercel
 
 ## Getting Started

@@ -678,7 +678,7 @@ export default async function Page() {
 - ✅ Vercel 자동 배포 중
 - ✅ 배포 URL: https://devtools-hub-app.vercel.app
 
-### 📊 Week 1-2 전체 요약
+### 📊 Week 1-3 전체 요약
 
 **구현된 도구**: 10개
 1. JSON Formatter ✅
@@ -692,11 +692,17 @@ export default async function Page() {
 9. Color Converter ✅
 10. QR Code Generator ✅
 
-**버그 수정**: 11개 (Critical 3, High 3, Medium 3, Low 2) ✅
-**UX/DX 개선**: 3개 (Shortcuts Modal, Error Boundary, Loading States) ✅
+**버그 수정**: 16개 (Critical 4, High 8, Medium 4) ✅
+**UX/DX 개선**: 5개 (Shortcuts Modal, Error Boundary, Loading States, Local History, Smart Paste) ✅
 **SEO**: sitemap.ts + robots.ts ✅
 **국제화**: 4개 언어 (en, ko, ja, zh) ✅
 **모바일 최적화**: 완료 ✅
+
+**Sprint 3 완료 내용** (2025-11-04):
+- ✅ Local History: localStorage 기반, 최대 10개 항목, 즐겨찾기 지원
+- ✅ Smart Paste Detection: 6가지 타입 자동 감지 및 리다이렉트
+- ✅ useEffect 무한 루프 버그 5개 수정
+- ✅ 의존성 추가: nanoid, sonner, date-fns
 
 ### 🎯 Week 3 Planning Meeting - Sprint 3 MVP (2025-11-04)
 
@@ -717,35 +723,75 @@ export default async function Page() {
 - "모바일에서 못써!" → 완벽한 모바일 최적화 ✅
 - "정규식 너무 어려워!" → 15개 프리셋 ✅
 - "탭 너무 많아!" → 올인원 + Cmd+K ✅
-- "이전 작업 기록 없어!" → 로컬 히스토리 🚧
-- "붙여넣기 후 도구 찾기 귀찮아!" → 자동 감지 🚧
+- "이전 작업 기록 없어!" → 로컬 히스토리 ✅
+- "붙여넣기 후 도구 찾기 귀찮아!" → 자동 감지 ✅
 
-### 🚧 Week 3: 차기 작업 (다음 단계)
+### ✅ Week 3 완료: Sprint 3 MVP (2025-11-04)
 
-**Sprint 3 MVP - 우선순위별 실행**
-1. [ ] **Local History** (Priority 1, 6시간) - 필수
-   - useToolHistory hook 구현
-   - HistoryPanel 컴포넌트 (접기/펴기)
-   - 10개 도구 모두 적용
-   - 검색 및 삭제 기능
-2. [ ] **Smart Paste Detection** (Priority 2, 3시간) - 필수
-   - detectPasteType 유틸리티
-   - 글로벌 Cmd+V 핸들러
-   - JSON, JWT, Base64, URL Encoded, Timestamp, UUID 자동 감지
-   - Toast 알림
-3. [ ] **OG Image** (Priority 3, 1시간) - 필수
+**상세 문서**: [Sprint 3 Planning 문서](../docs/sprint3-planning.md)
+
+#### Priority 1: Local History (완료 - 6시간)
+- ✅ **useToolHistory 훅** 구현 (`lib/hooks/useToolHistory.ts`)
+  - localStorage 기반, 최대 10개 항목 저장
+  - SSR 안전성 확보 (typeof window 체크)
+  - QuotaExceededError 자동 복구
+  - 즐겨찾기 지원
+- ✅ **HistoryPanel 컴포넌트** 구현 (`components/tools/HistoryPanel.tsx`)
+  - 접기/펴기 기능
+  - 상대 시간 표시 (date-fns, 4개 언어)
+  - 즐겨찾기 토글
+- ✅ **9개 도구에 모두 적용**
+  - JSON Formatter, RegExp Tester, Base64, JWT Debugger
+  - Timestamp, URL Encoder, Hash Generator
+  - Color Converter, QR Generator
+- ✅ **수동 저장 버튼** 추가 (UX 개선)
+  - 자동 저장 제거 → 명시적 버튼 클릭
+
+#### Priority 2: Smart Paste Detection (완료 - 3시간)
+- ✅ **detectPasteType 유틸리티** 구현 (`lib/tools/detectPasteType.ts`)
+  - 6가지 타입 자동 감지: JSON, JWT, Base64, URL Encoded, Timestamp, UUID
+  - 우선순위 기반 패턴 매칭
+  - 최소/최대 길이 제한 (5~10,000자)
+- ✅ **SmartPasteDetector 컴포넌트** 구현 (`components/layout/SmartPasteDetector.tsx`)
+  - 글로벌 Cmd+V 핸들러
+  - Input/Textarea 필드 무시
+  - Toast 알림 (sonner)
+  - 자동 리다이렉트 (URL 파라미터로 데이터 전달)
+- ✅ **Layout 통합** (`app/[locale]/layout.tsx`)
+  - Toaster 컴포넌트 추가
+  - SmartPasteDetector 전역 활성화
+
+#### 버그 수정 (완료 - 2시간)
+- ✅ **CRITICAL: useEffect 무한 루프 버그 수정** (5개 도구)
+  - RegExp Tester: useCallback 추가, 자동 저장 제거
+  - JWT Debugger: handleDecode 자동 저장 제거
+  - Timestamp: handleTimestampConvert/handleDateConvert 자동 저장 제거
+  - Color Converter: handleInputChange/handlePickerChange 자동 저장 제거
+  - QR Generator: useEffect 자동 저장 제거
+- ✅ **TypeScript 에러 수정**
+  - useCallback import 추가
+  - Check icon import 추가
+- ✅ **GitHub 참조 제거**
+  - Footer에서 GitHub 링크 제거
+  - ErrorBoundary 텍스트 수정
+
+#### 의존성 추가
+- ✅ nanoid (^5.0.8) - 고유 ID 생성
+- ✅ sonner (^1.7.1) - Toast 알림
+- ✅ date-fns (^4.1.0) - 날짜 포맷팅
+
+### 🚧 Week 3: 남은 작업
+
+**Sprint 3 남은 우선순위**
+1. [ ] **OG Image** (Priority 3, 1시간) - 필수
    - 1200×630 소셜 미디어 썸네일
    - public/og-image.png 생성
    - 메타 태그 검증
-4. [ ] **Share URL 기능** (Priority 4, 5시간) - Nice to Have
+2. [ ] **Share URL 기능** (Priority 4, 5시간) - Nice to Have
    - Vercel KV 통합
    - API route /api/share
    - nanoid로 짧은 URL 생성
    - 30일 자동 만료
-5. [ ] **Favorites** (Priority 5, 2시간) - Nice to Have
-   - 히스토리 항목에 별표 표시
-   - 즐겨찾기 목록 별도 표시
-   - localStorage 저장
 
 **추가 작업**
 6. [ ] **배포 검증 및 테스트**
