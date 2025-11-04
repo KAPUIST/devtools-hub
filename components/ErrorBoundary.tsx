@@ -90,12 +90,6 @@ export class ErrorBoundary extends Component<Props, State> {
                   <Home className="h-4 w-4" />
                   Go Home
                 </Button>
-                <Button
-                  onClick={() => window.open('https://github.com/yourusername/devtools-hub/issues', '_blank')}
-                  variant="outline"
-                >
-                  Report Bug on GitHub
-                </Button>
               </div>
 
               {/* Technical Info */}

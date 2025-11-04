@@ -158,7 +158,7 @@ export default function PrivacyPolicyPage() {
             <li>Withdraw consent</li>
           </ul>
           <p className="mt-4">
-            To exercise these rights, please contact us at: <strong>privacy@devtools-hub.com</strong>
+            To exercise these rights, please contact us at: <strong>thsxornjs12@gmail.com</strong>
           </p>
         </CardContent>
       </Card>
@@ -192,7 +192,7 @@ export default function PrivacyPolicyPage() {
         <CardContent>
           <p>If you have any questions about this Privacy Policy, please contact us:</p>
           <ul className="list-disc list-inside space-y-2 ml-4 mt-4">
-            <li>Email: privacy@devtools-hub.com</li>
+            <li>Email: thsxornjs12@gmail.com</li>
             <li>Website: https://devtools-hub-app.vercel.app</li>
           </ul>
         </CardContent>
