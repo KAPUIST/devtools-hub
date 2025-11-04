@@ -601,20 +601,60 @@ export default async function Page() {
 - ✅ UUID Generator 완전 번역
 - ✅ 타입 체크 통과 (0 errors)
 
-### 🚧 Week 2: 추가 도구 (다음 작업)
-1. [ ] **Unix Timestamp Converter**
+#### 버그 수정 (완료 - 2025-11-04)
+- ✅ **Critical Priority (3개)**
+  - Debug console.log 제거 (5개 로그)
+  - QR Generator useEffect race condition 수정
+  - 모바일 Sidebar 수정 (도구 메뉴 완전히 안보이던 치명적 버그)
+- ✅ **High Priority (3개)**
+  - UUID Generator: 중복 코드 55줄 제거 (copyToClipboard 공통 함수화)
+  - UUID Generator: 타이머 누적 버그 수정
+  - Base64: URL.revokeObjectURL 메모리 누수 수정 (try-finally)
+- ✅ **Medium Priority (3개)**
+  - JSON Formatter: 300ms debounce 추가 (성능 개선)
+  - QR Generator: Clipboard API fallback 추가 (구형 브라우저)
+  - JWT/JSON Formatter: useEffect 의존성 배열 수정
+
+#### UX/DX 개선 (완료 - 2025-11-04)
+- ✅ **Keyboard Shortcuts Modal** (Cmd+/ or ?)
+  - 모든 단축키를 카테고리별로 보여주는 모달
+  - Navigation, General, Tools 카테고리 구분
+  - 4개 언어 완전 번역
+- ✅ **Error Boundary**
+  - 런타임 에러 캐치 및 친절한 복구 옵션 제공
+  - 개발 모드에서 에러 상세 표시
+  - Report Bug 버튼으로 GitHub Issues 연동
+- ✅ **Loading States (Skeleton Screens)**
+  - QR Generator에 스켈레톤 로딩 추가
+  - 생성 중 스피너 애니메이션
+  - 로딩 완료까지 액션 버튼 숨김
+
+#### 배포 및 모니터링 준비 (완료 - 2025-11-04)
+- ✅ Vercel Speed Insights 추가
+- ✅ Google AdSense 설정 (ads.txt 생성)
+- ✅ Google Search Console 검증 메타 태그 추가
+
+### 🚧 Week 2: 추가 도구 및 배포 (다음 작업)
+1. [ ] **Vercel 배포** (최우선!)
+   - git push origin main
+   - 실제 모바일 테스트
+   - Google Search Console 검증 확인
+2. [ ] **SEO 최적화**
+   - sitemap.xml 생성
+   - robots.txt 최적화
+   - 각 도구 페이지 메타 태그 개선
+3. [ ] **Unix Timestamp Converter**
    - Unix timestamp ↔ 날짜
    - 현재 시간 표시
    - 타임존 변환
-2. [ ] **URL Encoder/Decoder**
+4. [ ] **URL Encoder/Decoder**
    - URL encoding/decoding
    - Query string parser
-3. [ ] **Hash Generator**
+5. [ ] **Hash Generator**
    - MD5, SHA-1, SHA-256, SHA-512
    - 파일 해시 계산
-4. [ ] Vercel 배포
-5. [ ] SEO 최적화
 6. [ ] ProductHunt 준비
+7. [ ] OG 이미지 생성 (디자인 작업)
 
 ### 📅 Week 3: AI 기능 (계획)
 1. [ ] JSON → TypeScript Interface (OpenAI API)

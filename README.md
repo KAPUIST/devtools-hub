@@ -68,11 +68,14 @@ A collection of developer tools with best-in-class UX/DX. No signup required, in
 - Error correction level options
 
 ### Core UX Features
-- Command Palette (Cmd+K) for quick tool access
-- Dark mode with system preference detection
-- Full internationalization (English, Korean, Japanese, Chinese)
-- Responsive layout (mobile/tablet/desktop)
-- Keyboard shortcuts
+- **Command Palette** (Cmd+K) for quick tool access
+- **Keyboard Shortcuts Modal** (Cmd+/ or ?) shows all available shortcuts
+- **Error Boundary** catches runtime errors with friendly recovery options
+- **Loading States** with skeleton screens for better perceived performance
+- **Dark mode** with system preference detection
+- **Full internationalization** (English, Korean, Japanese, Chinese)
+- **Responsive layout** optimized for mobile/tablet/desktop
+- **Mobile-friendly** sidebar with hamburger menu
 
 ## Tech Stack
 
@@ -130,9 +133,17 @@ devtools-hub/
 │       └── qr-generator/
 ├── components/
 │   ├── layout/
+│   │   ├── Header.tsx
+│   │   ├── Sidebar.tsx
+│   │   ├── Footer.tsx
+│   │   ├── KeyboardShortcuts.tsx
+│   │   ├── LanguageSwitcher.tsx
+│   │   └── ThemeToggle.tsx
 │   ├── providers/
+│   │   └── ThemeProvider.tsx
 │   ├── CommandPalette.tsx
-│   └── ui/
+│   ├── ErrorBoundary.tsx
+│   └── ui/ (shadcn/ui components)
 ├── lib/
 │   ├── tools/
 │   └── utils.ts
@@ -151,12 +162,16 @@ devtools-hub/
 
 ## Keyboard Shortcuts
 
+Press `Cmd+/` or `?` to see all shortcuts in-app.
+
 | Shortcut | Action |
 |----------|--------|
-| `Cmd+K` | Open Command Palette |
+| `Cmd+K` | Open Command Palette (Search Tools) |
+| `Cmd+/` or `?` | Show Keyboard Shortcuts Modal |
 | `Cmd+Shift+D` | Toggle Dark Mode |
 | `Cmd+C` | Copy Result |
-| `Cmd+V` | Paste |
+| `Cmd+Enter` | Execute/Format |
+| `Esc` | Close Modal/Dialog |
 
 ## Internationalization
 
