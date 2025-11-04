@@ -12,7 +12,9 @@
     "output": "Output",
     "error": "Error",
     "tips": "Tips",
-    "loadExample": "Load Example"
+    "loadExample": "Load Example",
+    "history": "History",
+    "clearHistory": "Clear History"
   },
   "header": {
     "title": "DevTools Hub"

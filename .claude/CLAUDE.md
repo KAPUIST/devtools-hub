@@ -698,24 +698,66 @@ export default async function Page() {
 **국제화**: 4개 언어 (en, ko, ja, zh) ✅
 **모바일 최적화**: 완료 ✅
 
+### 🎯 Week 3 Planning Meeting - Sprint 3 MVP (2025-11-04)
+
+**상세 문서**: [Sprint 3 Planning 문서](../docs/sprint3-planning.md)
+
+#### 핵심 전략 요약
+
+**경쟁 우위 6가지**
+1. 속도 (0.5초 vs 경쟁사 3-5초)
+2. 모바일 최적화 (유일한 모바일 친화적 도구)
+3. 초보자 친화적 (RegExp 15개 프리셋)
+4. 올인원 (Cmd+K 도구 전환)
+5. 다국어 지원 (4개 언어)
+6. 키보드 중심 UX (생산성 3배)
+
+**해결하는 Pain Points**
+- "너무 느려!" → 실시간 포맷팅 (300ms debounce) ✅
+- "모바일에서 못써!" → 완벽한 모바일 최적화 ✅
+- "정규식 너무 어려워!" → 15개 프리셋 ✅
+- "탭 너무 많아!" → 올인원 + Cmd+K ✅
+- "이전 작업 기록 없어!" → 로컬 히스토리 🚧
+- "붙여넣기 후 도구 찾기 귀찮아!" → 자동 감지 🚧
+
 ### 🚧 Week 3: 차기 작업 (다음 단계)
-1. [ ] **배포 검증 및 테스트**
+
+**Sprint 3 MVP - 우선순위별 실행**
+1. [ ] **Local History** (Priority 1, 6시간) - 필수
+   - useToolHistory hook 구현
+   - HistoryPanel 컴포넌트 (접기/펴기)
+   - 10개 도구 모두 적용
+   - 검색 및 삭제 기능
+2. [ ] **Smart Paste Detection** (Priority 2, 3시간) - 필수
+   - detectPasteType 유틸리티
+   - 글로벌 Cmd+V 핸들러
+   - JSON, JWT, Base64, URL Encoded, Timestamp, UUID 자동 감지
+   - Toast 알림
+3. [ ] **OG Image** (Priority 3, 1시간) - 필수
+   - 1200×630 소셜 미디어 썸네일
+   - public/og-image.png 생성
+   - 메타 태그 검증
+4. [ ] **Share URL 기능** (Priority 4, 5시간) - Nice to Have
+   - Vercel KV 통합
+   - API route /api/share
+   - nanoid로 짧은 URL 생성
+   - 30일 자동 만료
+5. [ ] **Favorites** (Priority 5, 2시간) - Nice to Have
+   - 히스토리 항목에 별표 표시
+   - 즐겨찾기 목록 별도 표시
+   - localStorage 저장
+
+**추가 작업**
+6. [ ] **배포 검증 및 테스트**
    - 실제 모바일 디바이스 테스트
    - Google Search Console 검증 완료
    - 모든 도구 정상 작동 확인
-2. [ ] **OG 이미지 생성** (디자인 작업)
-   - 1200×630 소셜 미디어 썸네일
-   - DevTools Hub 브랜딩
-3. [ ] **ProductHunt 준비**
+7. [ ] **ProductHunt 준비**
    - 제품 설명 작성
-   - 스크린샷 준비
+   - 스크린샷 준비 (히스토리 기능 강조)
    - 론칭 전략 수립
-4. [ ] **성능 최적화**
-   - Core Web Vitals 개선
-   - 이미지 최적화
-   - Code splitting
 
-### 📅 Week 3: AI 기능 (계획)
+### 📅 Week 4+: AI 기능 (계획)
 1. [ ] JSON → TypeScript Interface (OpenAI API)
 2. [ ] RegExp AI 설명
 3. [ ] Freemium 모델 설계

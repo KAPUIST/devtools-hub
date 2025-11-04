@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"
 import { useTranslations } from "next-intl"
+import { useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -12,6 +13,7 @@ type UUIDVersion = 'v1' | 'v4'
 
 export default function UUIDGeneratorPage() {
   const t = useTranslations()
+  const searchParams = useSearchParams()
   const [version, setVersion] = useState<UUIDVersion>('v4')
   const [count, setCount] = useState<number>(5)
   const [uuids, setUUIDs] = useState<string[]>([])
@@ -19,8 +21,42 @@ export default function UUIDGeneratorPage() {
   const [error, setError] = useState<string | null>(null)
   const copyTimerRef = useRef<NodeJS.Timeout | null>(null)
 
-  // 초기 UUID 생성 (의존성 없는 초기화 전용)
+  // Smart Paste Detection: URL의 paste 파라미터 처리
   useEffect(() => {
+    const pastedText = searchParams.get('paste')
+    if (pastedText) {
+      // 최대 100KB로 제한
+      if (pastedText.length > 100_000) {
+        console.warn('Paste parameter too large, ignoring')
+        window.history.replaceState({}, '', window.location.pathname)
+        return
+      }
+
+      try {
+        const decoded = decodeURIComponent(pastedText)
+
+        // 디코딩 후에도 체크
+        if (decoded.length > 100_000) {
+          console.warn('Decoded paste too large, ignoring')
+          window.history.replaceState({}, '', window.location.pathname)
+          return
+        }
+
+        // UUID인지 감지 (8-4-4-4-12 형식)
+        if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(decoded)) {
+          // 붙여넣은 UUID를 목록에 추가
+          setUUIDs([decoded])
+          setError(null)
+        }
+        // URL에서 파라미터 제거 (깔끔하게)
+        window.history.replaceState({}, '', window.location.pathname)
+      } catch (error) {
+        console.error('Failed to decode paste parameter:', error)
+      }
+      return // paste 파라미터가 있으면 예시 데이터 로드 안함
+    }
+
+    // 초기 UUID 생성 (의존성 없는 초기화 전용)
     const result = generateUUIDs('v4', 5) // 기본값 직접 사용
     if (result.success && result.uuids) {
       setUUIDs(result.uuids)
@@ -32,7 +68,7 @@ export default function UUIDGeneratorPage() {
       setError(errorMessage)
       setUUIDs([])
     }
-  }, [t])
+  }, [t, searchParams])
 
   // 컴포넌트 unmount 시 타이머 정리
   useEffect(() => {

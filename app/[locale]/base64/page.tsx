@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react"
 import { useTranslations } from "next-intl"
+import { useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
@@ -13,12 +14,19 @@ import {
   getExtensionFromMimeType
 } from "@/lib/tools/base64"
 import { Check, Copy, AlertCircle, Upload, Download, Image as ImageIcon } from "lucide-react"
+import { useToolHistory } from "@/lib/hooks/useToolHistory"
+import { HistoryPanel } from "@/components/tools/HistoryPanel"
 
 type Mode = "text" | "file"
 type Operation = "encode" | "decode"
 
+// 예시 데이터 (컴포넌트 외부 상수)
+const EXAMPLE_TEXT = "Hello, DevTools Hub! 안녕하세요! 👋"
+const EXAMPLE_BASE64 = "SGVsbG8sIERldlRvb2xzIEh1YiEg7JWI64WV7ZWY7IS47JqUISDwn5GL"
+
 export default function Base64Page() {
   const t = useTranslations()
+  const searchParams = useSearchParams()
   const [mode, setMode] = useState<Mode>("text")
   const [operation, setOperation] = useState<Operation>("encode")
 
@@ -37,25 +45,74 @@ export default function Base64Page() {
   const [isImageFile, setIsImageFile] = useState(false)
 
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const { history, addToHistory, clearHistory, toggleFavorite } = useToolHistory('base64')
 
-  // 예시 데이터
-  const exampleText = "Hello, DevTools Hub! 안녕하세요! 👋"
-  const exampleBase64 = "SGVsbG8sIERldlRvb2xzIEh1YiEg7JWI64WV7ZWY7IS47JqUISDwn5GL"
-
-  // 초기 예시 데이터 설정
+  // Smart Paste Detection: URL의 paste 파라미터 처리
   useEffect(() => {
-    setTextInput(exampleText)
-    const result = encodeBase64(exampleText)
+    const pastedText = searchParams.get('paste')
+    if (pastedText) {
+      // 최대 100KB로 제한
+      if (pastedText.length > 100_000) {
+        console.warn('Paste parameter too large, ignoring')
+        window.history.replaceState({}, '', window.location.pathname)
+        return
+      }
+
+      try {
+        const decoded = decodeURIComponent(pastedText)
+
+        // 디코딩 후에도 체크
+        if (decoded.length > 100_000) {
+          console.warn('Decoded paste too large, ignoring')
+          window.history.replaceState({}, '', window.location.pathname)
+          return
+        }
+
+        // Base64인지 감지 (4의 배수 길이 + A-Za-z0-9+/= 문자)
+        const isBase64 = /^[A-Za-z0-9+/]+=*$/.test(decoded) && decoded.length % 4 === 0
+
+        if (isBase64) {
+          // Base64 디코딩 모드
+          setOperation("decode")
+          setBase64Input(decoded)
+          const result = decodeBase64(decoded)
+          if (result.success && result.result) {
+            setOutput(result.result)
+            setError(null)
+          }
+        } else {
+          // 일반 텍스트 인코딩 모드
+          setOperation("encode")
+          setTextInput(decoded)
+          const result = encodeBase64(decoded)
+          if (result.success && result.result) {
+            setOutput(result.result)
+            setError(null)
+          }
+        }
+
+        // URL에서 파라미터 제거 (깔끔하게)
+        window.history.replaceState({}, '', window.location.pathname)
+      } catch (error) {
+        console.error('Failed to decode paste parameter:', error)
+      }
+      return // paste 파라미터가 있으면 예시 데이터 로드 안함
+    }
+
+    // 초기 예시 데이터 설정
+    setTextInput(EXAMPLE_TEXT)
+    const result = encodeBase64(EXAMPLE_TEXT)
     if (result.success && result.result) {
       setOutput(result.result)
     }
-  }, [])
+  }, [searchParams])
 
   const handleTextEncode = () => {
     const result = encodeBase64(textInput)
     if (result.success && result.result) {
       setOutput(result.result)
       setError(null)
+      addToHistory(textInput, result.result)
     } else {
       setError(result.error || "인코딩 중 오류가 발생했습니다.")
       setOutput("")
@@ -67,6 +124,7 @@ export default function Base64Page() {
     if (result.success && result.result) {
       setOutput(result.result)
       setError(null)
+      addToHistory(base64Input, result.result)
     } else {
       setError(result.error || "디코딩 중 오류가 발생했습니다.")
       setOutput("")
@@ -82,6 +140,7 @@ export default function Base64Page() {
       setFileBase64(result.base64)
       setFileMimeType(result.mimeType || "")
       setIsImageFile(file.type.startsWith("image/"))
+      addToHistory(file.name, `Base64 encoded: ${file.name}`)
     } else {
       setError(result.error || "파일 인코딩 중 오류가 발생했습니다.")
       setFileBase64("")
@@ -435,6 +494,22 @@ export default function Base64Page() {
           </Card>
         </div>
       )}
+
+      {/* History Panel */}
+      <HistoryPanel
+        history={history}
+        onSelect={(item) => {
+          if (mode === "text") {
+            if (operation === "encode") {
+              setTextInput(item.input)
+            } else {
+              setBase64Input(item.input)
+            }
+          }
+        }}
+        onClear={clearHistory}
+        onToggleFavorite={toggleFavorite}
+      />
 
       {/* Tips */}
       <Card>

@@ -12,7 +12,9 @@
     "output": "输出",
     "error": "错误",
     "tips": "提示",
-    "loadExample": "加载示例"
+    "loadExample": "加载示例",
+    "history": "历史记录",
+    "clearHistory": "清除历史记录"
   },
   "header": {
     "title": "DevTools Hub"

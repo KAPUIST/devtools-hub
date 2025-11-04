@@ -9,6 +9,8 @@ import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { CommandPalette } from "@/components/CommandPalette";
 import { KeyboardShortcuts } from "@/components/layout/KeyboardShortcuts";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { SmartPasteDetector } from "@/components/layout/SmartPasteDetector";
+import { Toaster } from "sonner";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -40,6 +42,8 @@ export default async function LocaleLayout({
         enableSystem
         disableTransitionOnChange
       >
+        <SmartPasteDetector />
+        <Toaster position="top-center" />
         <ErrorBoundary>
           <div className="relative flex min-h-screen flex-col">
             <Header />

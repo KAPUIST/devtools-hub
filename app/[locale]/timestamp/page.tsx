@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { useTranslations } from "next-intl"
+import { useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
@@ -15,9 +16,12 @@ import {
   type RelativeTimeResult,
 } from "@/lib/tools/timestamp"
 import { Check, Copy, Clock, Calendar, AlertCircle, RefreshCw } from "lucide-react"
+import { useToolHistory } from "@/lib/hooks/useToolHistory"
+import { HistoryPanel } from "@/components/tools/HistoryPanel"
 
 export default function TimestampConverterPage() {
   const t = useTranslations()
+  const searchParams = useSearchParams()
 
   // 현재 시간 (1초마다 업데이트)
   const [currentTime, setCurrentTime] = useState(getCurrentTimestamp())
@@ -33,6 +37,7 @@ export default function TimestampConverterPage() {
 
   // 복사 상태
   const [copied, setCopied] = useState<string | null>(null)
+  const { history, addToHistory, clearHistory, toggleFavorite } = useToolHistory('timestamp-converter')
 
   // 예시 타임스탬프 (현재 시간)
   const exampleTimestamp = Math.floor(Date.now() / 1000)
@@ -69,8 +74,26 @@ export default function TimestampConverterPage() {
     return errorMap[errorCode] || t('common.error')
   }
 
-  // 초기 예시 데이터 설정 & 1초마다 현재 시간 업데이트
+  // Smart Paste Detection: URL의 paste 파라미터 처리
   useEffect(() => {
+    const pastedText = searchParams.get('paste')
+    if (pastedText) {
+      try {
+        const decoded = decodeURIComponent(pastedText)
+        // Unix Timestamp인지 감지 (10자리 또는 13자리 숫자)
+        if (/^\d{10}$/.test(decoded) || /^\d{13}$/.test(decoded)) {
+          setTimestampInput(decoded)
+          handleTimestampConvert(decoded)
+        }
+        // URL에서 파라미터 제거 (깔끔하게)
+        window.history.replaceState({}, '', window.location.pathname)
+      } catch (error) {
+        console.error('Failed to decode paste parameter:', error)
+      }
+      return // paste 파라미터가 있으면 예시 데이터 로드 안함
+    }
+
+    // 초기 예시 데이터 설정
     setTimestampInput(exampleTimestamp.toString())
     handleTimestampConvert(exampleTimestamp.toString())
 
@@ -81,8 +104,10 @@ export default function TimestampConverterPage() {
       .slice(0, 16)
     setDateInput(localDateTime)
     handleDateConvert(localDateTime)
+  }, [searchParams])
 
-    // 1초마다 현재 시간 업데이트
+  // 1초마다 현재 시간 업데이트 (별도 useEffect)
+  useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTime(getCurrentTimestamp())
     }, 1000)
@@ -114,6 +139,13 @@ export default function TimestampConverterPage() {
     setTimestampResult(result)
   }
 
+  // 히스토리 수동 저장 함수
+  const saveTimestampToHistory = () => {
+    if (timestampResult?.success && timestampResult.iso8601) {
+      addToHistory(timestampInput, timestampResult.iso8601)
+    }
+  }
+
   const handleDateConvert = (value: string = dateInput) => {
     if (!value.trim()) {
       setDateResult(null)
@@ -128,6 +160,14 @@ export default function TimestampConverterPage() {
 
     const result = dateToTimestamp(date)
     setDateResult(result)
+  }
+
+  // Date → Timestamp 히스토리 저장 함수
+  const saveDateToHistory = () => {
+    if (dateResult && dateResult.seconds && dateInput) {
+      const date = new Date(dateInput)
+      addToHistory(dateInput, `${dateResult.seconds} (${date.toLocaleString()})`)
+    }
   }
 
   const handleCopy = async (text: string, id: string) => {
@@ -173,6 +213,12 @@ export default function TimestampConverterPage() {
         <Button onClick={handleClear} variant="outline">
           {t('common.clear')}
         </Button>
+        {(timestampResult?.success || dateResult?.seconds) && (
+          <Button onClick={saveTimestampToHistory} variant="outline" className="gap-2">
+            <Check className="h-4 w-4" />
+            히스토리에 저장
+          </Button>
+        )}
       </div>
 
       {/* Current Time Card */}
@@ -501,6 +547,23 @@ export default function TimestampConverterPage() {
           )}
         </CardContent>
       </Card>
+
+      {/* History Panel */}
+      <HistoryPanel
+        history={history}
+        onSelect={(item) => {
+          // input이 숫자인지 확인하여 적절한 필드에 설정
+          if (/^\d+$/.test(item.input)) {
+            setTimestampInput(item.input)
+            handleTimestampConvert(item.input)
+          } else {
+            setDateInput(item.input)
+            handleDateConvert(item.input)
+          }
+        }}
+        onClear={clearHistory}
+        onToggleFavorite={toggleFavorite}
+      />
 
       {/* Tips */}
       <Card>

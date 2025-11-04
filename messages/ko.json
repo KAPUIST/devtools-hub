@@ -12,7 +12,9 @@
     "output": "출력",
     "error": "오류",
     "tips": "팁",
-    "loadExample": "예시 불러오기"
+    "loadExample": "예시 불러오기",
+    "history": "히스토리",
+    "clearHistory": "히스토리 지우기"
   },
   "header": {
     "title": "DevTools Hub"

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { useTranslations } from "next-intl"
+import { useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
@@ -15,9 +16,16 @@ import {
   type JWTVerifyResult,
 } from "@/lib/tools/jwt"
 import { Check, Copy, AlertCircle, Clock, Shield, FileJson, RefreshCw, X } from "lucide-react"
+import { useToolHistory } from "@/lib/hooks/useToolHistory"
+import { HistoryPanel } from "@/components/tools/HistoryPanel"
+
+// 예시 JWT 토큰 (유효 기간: 2099년) + Secret Key (컴포넌트 외부 상수)
+const EXAMPLE_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiZW1haWwiOiJqb2huQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNTE2MjM5MDIyLCJleHAiOjQxMDI0NDQ4MDB9.l5TxjKfGtnr0CUBaKx_Z1sQFrdnQho60gQmNghbDaek"
+const EXAMPLE_SECRET = "your-256-bit-secret"
 
 export default function JWTDebuggerPage() {
   const t = useTranslations()
+  const searchParams = useSearchParams()
   const [token, setToken] = useState("")
   const [error, setError] = useState<string | null>(null)
   const [decodedResult, setDecodedResult] = useState<ReturnType<typeof decodeJWT> | null>(null)
@@ -25,17 +33,51 @@ export default function JWTDebuggerPage() {
   const [secret, setSecret] = useState("")
   const [verifyResult, setVerifyResult] = useState<JWTVerifyResult | null>(null)
   const [isVerifying, setIsVerifying] = useState(false)
+  const { history, addToHistory, clearHistory, toggleFavorite } = useToolHistory('jwt-debugger')
 
-  // 예시 JWT 토큰 (유효 기간: 2099년) + Secret Key
-  const exampleToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiZW1haWwiOiJqb2huQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNTE2MjM5MDIyLCJleHAiOjQxMDI0NDQ4MDB9.l5TxjKfGtnr0CUBaKx_Z1sQFrdnQho60gQmNghbDaek"
-  const exampleSecret = "your-256-bit-secret"
-
+  // Smart Paste Detection: URL의 paste 파라미터 처리
   useEffect(() => {
-    // 초기 예시 토큰 + Secret Key 설정
-    setToken(exampleToken)
-    setSecret(exampleSecret)
+    const pastedText = searchParams.get('paste')
+    if (pastedText) {
+      // 최대 100KB로 제한
+      if (pastedText.length > 100_000) {
+        console.warn('Paste parameter too large, ignoring')
+        window.history.replaceState({}, '', window.location.pathname)
+        return
+      }
 
-    const result = decodeJWT(exampleToken)
+      try {
+        const decoded = decodeURIComponent(pastedText)
+
+        // 디코딩 후에도 체크
+        if (decoded.length > 100_000) {
+          console.warn('Decoded paste too large, ignoring')
+          window.history.replaceState({}, '', window.location.pathname)
+          return
+        }
+
+        setToken(decoded)
+        const result = decodeJWT(decoded)
+        if (result.success) {
+          setDecodedResult(result)
+          setError(null)
+        } else {
+          setDecodedResult(null)
+          setError(result.error || "디코딩 중 오류가 발생했습니다.")
+        }
+        // URL에서 파라미터 제거 (깔끔하게)
+        window.history.replaceState({}, '', window.location.pathname)
+      } catch (error) {
+        console.error('Failed to decode paste parameter:', error)
+      }
+      return // paste 파라미터가 있으면 예시 데이터 로드 안함
+    }
+
+    // 초기 예시 토큰 + Secret Key 설정
+    setToken(EXAMPLE_TOKEN)
+    setSecret(EXAMPLE_SECRET)
+
+    const result = decodeJWT(EXAMPLE_TOKEN)
     if (result.success) {
       setDecodedResult(result)
       setError(null)
@@ -43,7 +85,7 @@ export default function JWTDebuggerPage() {
       setDecodedResult(null)
       setError(result.error || "디코딩 중 오류가 발생했습니다.")
     }
-  }, [])
+  }, [searchParams])
 
   const handleDecode = (value: string = token) => {
     if (!value.trim()) {
@@ -59,6 +101,14 @@ export default function JWTDebuggerPage() {
     } else {
       setDecodedResult(null)
       setError(result.error || "디코딩 중 오류가 발생했습니다.")
+    }
+  }
+
+  // 히스토리 수동 저장 함수
+  const saveToHistory = () => {
+    if (decodedResult?.success && decodedResult.payload) {
+      const summary = decodedResult.payload.sub ? `sub: ${decodedResult.payload.sub}` : 'JWT decoded'
+      addToHistory(token, summary)
     }
   }
 
@@ -160,6 +210,12 @@ export default function JWTDebuggerPage() {
         <Button onClick={handleClear} variant="outline">
           {t('common.clear')}
         </Button>
+        {decodedResult?.success && (
+          <Button onClick={saveToHistory} variant="outline" className="gap-2">
+            <Check className="h-4 w-4" />
+            히스토리에 저장
+          </Button>
+        )}
         {decodedResult && getStatusBadge()}
         {decodedResult && decodedResult.payload?.exp && (
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -464,6 +520,17 @@ export default function JWTDebuggerPage() {
           </CardContent>
         </Card>
       )}
+
+      {/* History Panel */}
+      <HistoryPanel
+        history={history}
+        onSelect={(item) => {
+          setToken(item.input)
+          handleDecode(item.input)
+        }}
+        onClear={clearHistory}
+        onToggleFavorite={toggleFavorite}
+      />
 
       {/* Tips */}
       <Card>

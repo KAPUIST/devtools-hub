@@ -1,7 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useTranslations } from "next-intl"
+import { useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
@@ -24,9 +25,12 @@ import {
   parseQueryString,
   type QueryParam,
 } from "@/lib/tools/url"
+import { useToolHistory } from "@/lib/hooks/useToolHistory"
+import { HistoryPanel } from "@/components/tools/HistoryPanel"
 
 export default function URLEncoderPage() {
   const t = useTranslations()
+  const searchParams = useSearchParams()
 
   // Encode/Decode states
   const [encodeInput, setEncodeInput] = useState("")
@@ -46,10 +50,46 @@ export default function URLEncoderPage() {
   const [copiedEncode, setCopiedEncode] = useState(false)
   const [copiedDecode, setCopiedDecode] = useState(false)
   const [copiedParam, setCopiedParam] = useState<string | null>(null)
+  const { history, addToHistory, clearHistory, toggleFavorite } = useToolHistory('url-encoder')
 
   // 예시 데이터
   const exampleURL = "https://example.com/search?q=hello world&lang=한국어"
   const exampleQueryURL = "https://api.example.com/users?name=John Doe&age=30&city=New York"
+
+  // Smart Paste Detection: URL의 paste 파라미터 처리
+  useEffect(() => {
+    const pastedText = searchParams.get('paste')
+    if (pastedText) {
+      try {
+        const decoded = decodeURIComponent(pastedText)
+        // URL Encoded인지 감지 (%XX 패턴)
+        const isEncoded = /%[0-9A-Fa-f]{2}/.test(decoded)
+
+        if (isEncoded) {
+          // URL Encoded 디코딩 모드
+          setDecodeInput(decoded)
+          const result = decodeURL(decoded)
+          if (result.success && result.decoded) {
+            setDecodeOutput(result.decoded)
+            setDecodeError(null)
+          }
+        } else {
+          // 일반 URL 인코딩 모드
+          setEncodeInput(decoded)
+          const result = encodeURL(decoded)
+          if (result.success && result.encoded) {
+            setEncodeOutput(result.encoded)
+            setEncodeError(null)
+          }
+        }
+
+        // URL에서 파라미터 제거 (깔끔하게)
+        window.history.replaceState({}, '', window.location.pathname)
+      } catch (error) {
+        console.error('Failed to decode paste parameter:', error)
+      }
+    }
+  }, [searchParams])
 
   // Error message 헬퍼
   const getErrorMessage = (errorCode: string): string => {
@@ -62,6 +102,7 @@ export default function URLEncoderPage() {
     if (result.success && result.encoded) {
       setEncodeOutput(result.encoded)
       setEncodeError(null)
+      addToHistory(encodeInput, result.encoded)
     } else if (result.errorCode) {
       setEncodeError(getErrorMessage(result.errorCode))
       setEncodeOutput("")
@@ -74,6 +115,7 @@ export default function URLEncoderPage() {
     if (result.success && result.encoded) {
       setEncodeOutput(result.encoded)
       setEncodeError(null)
+      addToHistory(encodeInput, result.encoded)
     } else if (result.errorCode) {
       setEncodeError(getErrorMessage(result.errorCode))
       setEncodeOutput("")
@@ -86,6 +128,7 @@ export default function URLEncoderPage() {
     if (result.success && result.decoded) {
       setDecodeOutput(result.decoded)
       setDecodeError(null)
+      addToHistory(decodeInput, result.decoded)
     } else if (result.errorCode) {
       setDecodeError(getErrorMessage(result.errorCode))
       setDecodeOutput("")
@@ -98,6 +141,7 @@ export default function URLEncoderPage() {
     if (result.success && result.decoded) {
       setDecodeOutput(result.decoded)
       setDecodeError(null)
+      addToHistory(decodeInput, result.decoded)
     } else if (result.errorCode) {
       setDecodeError(getErrorMessage(result.errorCode))
       setDecodeOutput("")
@@ -432,6 +476,22 @@ export default function URLEncoderPage() {
           )}
         </CardContent>
       </Card>
+
+      {/* History Panel */}
+      <HistoryPanel
+        history={history}
+        onSelect={(item) => {
+          // 인코딩된 URL인지 확인
+          const isEncoded = /%[0-9A-Fa-f]{2}/.test(item.input)
+          if (isEncoded) {
+            setDecodeInput(item.input)
+          } else {
+            setEncodeInput(item.input)
+          }
+        }}
+        onClear={clearHistory}
+        onToggleFavorite={toggleFavorite}
+      />
 
       {/* Tips */}
       <Card>

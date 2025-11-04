@@ -17,6 +17,8 @@ import {
 } from "@/lib/tools/qrcode"
 import { Check, Copy, Download, QrCode, Loader2 } from "lucide-react"
 import { Skeleton } from "@/components/ui/skeleton"
+import { useToolHistory } from "@/lib/hooks/useToolHistory"
+import { HistoryPanel } from "@/components/tools/HistoryPanel"
 
 export default function QRGeneratorPage() {
   const t = useTranslations()
@@ -29,6 +31,7 @@ export default function QRGeneratorPage() {
   const [isGenerating, setIsGenerating] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
+  const { history, addToHistory, clearHistory, toggleFavorite } = useToolHistory('qr-generator')
 
   // Example data
   const examples = [
@@ -66,6 +69,13 @@ export default function QRGeneratorPage() {
 
     generateQR()
   }, [input, size, errorCorrection, t])
+
+  // 히스토리 수동 저장 함수
+  const saveToHistory = () => {
+    if (qrCodeDataURL && input.trim()) {
+      addToHistory(input, 'QR Code generated')
+    }
+  }
 
   // Download QR code
   const handleDownload = () => {
@@ -277,11 +287,29 @@ export default function QRGeneratorPage() {
                     </>
                   )}
                 </Button>
+                <Button
+                  onClick={saveToHistory}
+                  variant="outline"
+                  className="gap-2"
+                >
+                  <Check className="h-4 w-4" />
+                  히스토리에 저장
+                </Button>
               </div>
             )}
           </CardContent>
         </Card>
       )}
+
+      {/* History Panel */}
+      <HistoryPanel
+        history={history}
+        onSelect={(item) => {
+          setInput(item.input)
+        }}
+        onClear={clearHistory}
+        onToggleFavorite={toggleFavorite}
+      />
 
       {/* Tips */}
       <Card>

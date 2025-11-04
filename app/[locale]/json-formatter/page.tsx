@@ -2,39 +2,79 @@
 
 import { useState, useEffect, useRef, useCallback } from "react"
 import { useTranslations } from "next-intl"
+import { useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
 import { formatJson, minifyJson, validateJson } from "@/lib/tools/json"
 import { Check, Copy, AlertCircle } from "lucide-react"
+import { useToolHistory } from "@/lib/hooks/useToolHistory"
+import { HistoryPanel } from "@/components/tools/HistoryPanel"
+
+// 예시 데이터 (컴포넌트 외부 상수)
+const EXAMPLE_JSON = `{"name":"John Doe","age":30,"email":"john@example.com","address":{"street":"123 Main St","city":"New York","country":"USA"},"hobbies":["reading","coding","gaming"]}`
 
 export default function JsonFormatterPage() {
   const t = useTranslations()
+  const searchParams = useSearchParams()
   const [input, setInput] = useState("")
   const [output, setOutput] = useState("")
   const [error, setError] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
   const [indent, setIndent] = useState(2)
   const debounceTimerRef = useRef<NodeJS.Timeout | null>(null)
+  const { history, addToHistory, clearHistory, toggleFavorite } = useToolHistory('json-formatter')
 
-  // 예시 데이터
-  const exampleJson = `{"name":"John Doe","age":30,"email":"john@example.com","address":{"street":"123 Main St","city":"New York","country":"USA"},"hobbies":["reading","coding","gaming"]}`
-
+  // Smart Paste Detection: URL의 paste 파라미터 처리
   useEffect(() => {
+    const pastedText = searchParams.get('paste')
+    if (pastedText) {
+      // 최대 100KB로 제한
+      if (pastedText.length > 100_000) {
+        console.warn('Paste parameter too large, ignoring')
+        window.history.replaceState({}, '', window.location.pathname)
+        return
+      }
+
+      try {
+        const decoded = decodeURIComponent(pastedText)
+
+        // 디코딩 후에도 체크
+        if (decoded.length > 100_000) {
+          console.warn('Decoded paste too large, ignoring')
+          window.history.replaceState({}, '', window.location.pathname)
+          return
+        }
+
+        setInput(decoded)
+        const result = formatJson(decoded, 2)
+        if (result.success && result.formatted) {
+          setOutput(result.formatted)
+          setError(null)
+        }
+        // URL에서 파라미터 제거 (깔끔하게)
+        window.history.replaceState({}, '', window.location.pathname)
+      } catch (error) {
+        console.error('Failed to decode paste parameter:', error)
+      }
+      return // paste 파라미터가 있으면 예시 데이터 로드 안함
+    }
+
     // 초기 예시 데이터 설정
-    setInput(exampleJson)
-    const result = formatJson(exampleJson, 2)
+    setInput(EXAMPLE_JSON)
+    const result = formatJson(EXAMPLE_JSON, 2)
     if (result.success && result.formatted) {
       setOutput(result.formatted)
       setError(null)
     }
-  }, [])
+  }, [searchParams])
 
   const handleFormat = (value: string = input, indentSize: number = indent) => {
     const result = formatJson(value, indentSize)
     if (result.success && result.formatted) {
       setOutput(result.formatted)
       setError(null)
+      addToHistory(value, result.formatted)
     } else {
       setError(result.error || "알 수 없는 오류")
       setOutput("")
@@ -46,6 +86,7 @@ export default function JsonFormatterPage() {
     if (result.success && result.formatted) {
       setOutput(result.formatted)
       setError(null)
+      addToHistory(input, result.formatted)
     } else {
       setError(result.error || "알 수 없는 오류")
       setOutput("")
@@ -105,6 +146,7 @@ export default function JsonFormatterPage() {
     return () => {
       if (debounceTimerRef.current) {
         clearTimeout(debounceTimerRef.current)
+        debounceTimerRef.current = null // 명시적 null 할당
       }
     }
   }, [])
@@ -226,6 +268,20 @@ export default function JsonFormatterPage() {
           </CardContent>
         </Card>
       </div>
+
+      {/* History Panel */}
+      <HistoryPanel
+        history={history}
+        onSelect={(item) => {
+          setInput(item.input)
+          if (item.output) {
+            setOutput(item.output)
+            setError(null)
+          }
+        }}
+        onClear={clearHistory}
+        onToggleFavorite={toggleFavorite}
+      />
 
       {/* Tips */}
       <Card>

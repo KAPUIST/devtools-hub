@@ -7,6 +7,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input"
 import { parseColor, type ColorResult } from "@/lib/tools/color"
 import { Check, Copy, Palette } from "lucide-react"
+import { useToolHistory } from "@/lib/hooks/useToolHistory"
+import { HistoryPanel } from "@/components/tools/HistoryPanel"
 
 export default function ColorConverterPage() {
   const t = useTranslations()
@@ -19,6 +21,7 @@ export default function ColorConverterPage() {
 
   // Ref for timeout cleanup
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const { history, addToHistory, clearHistory, toggleFavorite } = useToolHistory('color-converter')
 
   // Example colors
   const exampleColors = [
@@ -46,6 +49,13 @@ export default function ColorConverterPage() {
     setInput(value)
     const result = parseColor(value)
     setColorResult(result)
+  }
+
+  // 히스토리 수동 저장 함수
+  const saveToHistory = () => {
+    if (colorResult?.success && colorResult.hex) {
+      addToHistory(input, colorResult.hex)
+    }
   }
 
   // Cleanup timeout on unmount
@@ -161,7 +171,13 @@ export default function ColorConverterPage() {
       {colorResult && colorResult.success && (
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg">{t('colorConverter.results')}</CardTitle>
+            <div className="flex items-center justify-between">
+              <CardTitle className="text-lg">{t('colorConverter.results')}</CardTitle>
+              <Button onClick={saveToHistory} variant="outline" size="sm" className="gap-2">
+                <Check className="h-4 w-4" />
+                히스토리에 저장
+              </Button>
+            </div>
           </CardHeader>
           <CardContent className="space-y-4">
             {/* Color Preview */}
@@ -311,6 +327,17 @@ export default function ColorConverterPage() {
           </CardContent>
         </Card>
       )}
+
+      {/* History Panel */}
+      <HistoryPanel
+        history={history}
+        onSelect={(item) => {
+          setInput(item.input)
+          handleInputChange(item.input)
+        }}
+        onClear={clearHistory}
+        onToggleFavorite={toggleFavorite}
+      />
 
       {/* Tips */}
       <Card>

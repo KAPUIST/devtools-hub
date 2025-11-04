@@ -12,7 +12,9 @@
     "output": "出力",
     "error": "エラー",
     "tips": "ヒント",
-    "loadExample": "例を読み込む"
+    "loadExample": "例を読み込む",
+    "history": "履歴",
+    "clearHistory": "履歴をクリア"
   },
   "header": {
     "title": "DevTools Hub"

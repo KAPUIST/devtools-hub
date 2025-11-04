@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { useTranslations } from "next-intl"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -8,7 +8,9 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/checkbox"
 import { testRegex, commonPatterns } from "@/lib/tools/regex"
-import { AlertCircle, Sparkles, ChevronDown, ChevronUp } from "lucide-react"
+import { AlertCircle, Sparkles, ChevronDown, ChevronUp, Check } from "lucide-react"
+import { useToolHistory } from "@/lib/hooks/useToolHistory"
+import { HistoryPanel } from "@/components/tools/HistoryPanel"
 
 export default function RegexTesterPage() {
   const t = useTranslations()
@@ -18,6 +20,7 @@ export default function RegexTesterPage() {
   const [testString, setTestString] = useState(selectedPattern.example)
   const [error, setError] = useState<string | null>(null)
   const [advancedMode, setAdvancedMode] = useState(false)
+  const { history, addToHistory, clearHistory, toggleFavorite } = useToolHistory('regex-tester')
 
   const flagsString = Object.entries(flags)
     .filter(([_, enabled]) => enabled)
@@ -26,13 +29,21 @@ export default function RegexTesterPage() {
 
   const result = testRegex(pattern, flagsString, testString)
 
+  // 에러 상태만 useEffect로 관리 (히스토리는 수동 저장)
   useEffect(() => {
     if (!result.success) {
       setError(result.error || null)
     } else {
       setError(null)
     }
-  }, [pattern, flagsString, testString])
+  }, [result.success, result.error])
+
+  // 히스토리에 수동 저장 함수
+  const saveToHistory = useCallback(() => {
+    if (result.success && result.matches && result.matches.length > 0 && testString.trim()) {
+      addToHistory(testString, `Matched ${result.matches.length} times`)
+    }
+  }, [result.success, result.matches?.length, testString, addToHistory])
 
   const handlePresetClick = (preset: typeof commonPatterns[0]) => {
     setSelectedPattern(preset)
@@ -167,9 +178,22 @@ export default function RegexTesterPage() {
       {/* Results */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">
-            3. 결과 {result.success && result.matches ? `(${result.matches.length}개 발견)` : ''}
-          </CardTitle>
+          <div className="flex items-center justify-between">
+            <CardTitle className="text-lg">
+              3. 결과 {result.success && result.matches ? `(${result.matches.length}개 발견)` : ''}
+            </CardTitle>
+            {result.success && result.matches && result.matches.length > 0 && (
+              <Button
+                onClick={saveToHistory}
+                variant="outline"
+                size="sm"
+                className="gap-2"
+              >
+                <Check className="h-4 w-4" />
+                히스토리에 저장
+              </Button>
+            )}
+          </div>
         </CardHeader>
         <CardContent>
           {error ? (
@@ -214,6 +238,16 @@ export default function RegexTesterPage() {
           )}
         </CardContent>
       </Card>
+
+      {/* History Panel */}
+      <HistoryPanel
+        history={history}
+        onSelect={(item) => {
+          setTestString(item.input)
+        }}
+        onClear={clearHistory}
+        onToggleFavorite={toggleFavorite}
+      />
 
       {/* Advanced Mode Toggle */}
       <Card>

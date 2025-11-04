@@ -9,6 +9,8 @@ import { Input } from "@/components/ui/input"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { hashTextAll, hashFile, type HashAlgorithm } from "@/lib/tools/hash"
 import { Check, Copy, Upload, AlertTriangle, Info } from "lucide-react"
+import { useToolHistory } from "@/lib/hooks/useToolHistory"
+import { HistoryPanel } from "@/components/tools/HistoryPanel"
 
 export default function HashGeneratorPage() {
   const t = useTranslations()
@@ -37,6 +39,7 @@ export default function HashGeneratorPage() {
 
   // Copy state
   const [copiedHash, setCopiedHash] = useState<string | null>(null)
+  const { history, addToHistory, clearHistory, toggleFavorite } = useToolHistory('hash-generator')
 
   // Example data
   const exampleText = "Hello, DevTools Hub!"
@@ -50,6 +53,7 @@ export default function HashGeneratorPage() {
 
     if (result.success && result.hashes) {
       setTextHashes(result.hashes)
+      addToHistory(textInput, result.hashes['SHA-256'])
     }
 
     setTextLoading(false)
@@ -64,6 +68,7 @@ export default function HashGeneratorPage() {
 
     if (result.success && result.hashes) {
       setFileHashes(result.hashes)
+      addToHistory(file.name, `SHA-256: ${result.hashes['SHA-256']}`)
     }
 
     setFileLoading(false)
@@ -308,6 +313,16 @@ export default function HashGeneratorPage() {
           )}
         </TabsContent>
       </Tabs>
+
+      {/* History Panel */}
+      <HistoryPanel
+        history={history}
+        onSelect={(item) => {
+          setTextInput(item.input)
+        }}
+        onClear={clearHistory}
+        onToggleFavorite={toggleFavorite}
+      />
 
       {/* Security Warning */}
       <Card className="border-yellow-500/50 bg-yellow-500/10">
