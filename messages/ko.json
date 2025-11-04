@@ -18,6 +18,7 @@
     "title": "DevTools Hub"
   },
   "sidebar": {
+    "tools": "도구",
     "essential": "필수",
     "frequentlyUsed": "자주 사용",
     "additional": "추가"

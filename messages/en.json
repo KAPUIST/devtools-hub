@@ -18,6 +18,7 @@
     "title": "DevTools Hub"
   },
   "sidebar": {
+    "tools": "Tools",
     "essential": "Essential",
     "frequentlyUsed": "Frequently Used",
     "additional": "Additional"

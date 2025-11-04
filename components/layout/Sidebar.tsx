@@ -80,17 +80,17 @@ const tools = [
 
 interface SidebarProps {
   onNavigate?: () => void
+  isMobile?: boolean
 }
 
-export function Sidebar({ onNavigate }: SidebarProps = {}) {
+export function Sidebar({ onNavigate, isMobile = false }: SidebarProps = {}) {
   const pathname = usePathname()
   const locale = useLocale()
   const t = useTranslations()
 
-  return (
-    <aside className="fixed top-14 z-30 hidden h-[calc(100vh-3.5rem)] w-full shrink-0 border-r md:sticky md:block md:w-64">
-      <div className="h-full overflow-auto py-6 pr-6 lg:py-8">
-        <nav className="space-y-1">
+  const content = (
+    <div className={cn("h-full overflow-auto", isMobile ? "py-4 px-6" : "py-6 pr-6 lg:py-8")}>
+      <nav className="space-y-1">
           {/* Tier 1 - Essential */}
           <div className="mb-4">
             <h4 className="mb-2 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
@@ -179,6 +179,15 @@ export function Sidebar({ onNavigate }: SidebarProps = {}) {
           </div>
         </nav>
       </div>
+    )
+
+  if (isMobile) {
+    return content
+  }
+
+  return (
+    <aside className="fixed top-14 z-30 hidden h-[calc(100vh-3.5rem)] w-full shrink-0 border-r md:sticky md:block md:w-64">
+      {content}
     </aside>
   )
 }

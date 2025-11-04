@@ -18,6 +18,7 @@
     "title": "DevTools Hub"
   },
   "sidebar": {
+    "tools": "工具",
     "essential": "必备",
     "frequentlyUsed": "常用",
     "additional": "附加"

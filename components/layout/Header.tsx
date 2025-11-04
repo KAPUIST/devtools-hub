@@ -38,10 +38,10 @@ export function Header() {
           </SheetTrigger>
           <SheetContent side="left" className="w-72 p-0">
             <SheetHeader className="border-b px-6 py-4">
-              <SheetTitle>Tools</SheetTitle>
+              <SheetTitle>{t('sidebar.tools')}</SheetTitle>
             </SheetHeader>
             <div className="overflow-auto h-[calc(100vh-4rem)]">
-              <Sidebar onNavigate={() => setMobileMenuOpen(false)} />
+              <Sidebar isMobile onNavigate={() => setMobileMenuOpen(false)} />
             </div>
           </SheetContent>
         </Sheet>
