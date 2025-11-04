@@ -9,63 +9,72 @@ A collection of developer tools with best-in-class UX/DX. No signup required, in
 
 ## Features
 
-### JSON Formatter/Validator
+> **10 Developer Tools** with professional UX/DX, fully responsive, and available in 4 languages (EN, KO, JA, ZH)
+
+### JSON Formatter/Validator ✅
 - Pretty print with configurable spacing (2/4/8 spaces)
 - Minify JSON
 - Real-time validation with error messages
-- Internationalization support (en, ko, ja, zh)
+- 300ms debounce for performance
+- Full internationalization (4 languages)
 
-### RegExp Tester
+### RegExp Tester ✅
 - 15 preset patterns (Email, URL, Phone, IPv4, Date, Time, Hex Color, HTML Tag, etc.)
 - Real-time match highlighting
 - Pattern transparency (shows actual regex being used)
 - Beginner-friendly interface with progressive disclosure
+- No regex knowledge required!
 
-### Base64 Encoder/Decoder
+### Base64 Encoder/Decoder ✅
 - Text mode with UTF-8 support
 - File mode with drag-and-drop
 - Image preview for image files
-- One-click copy
+- One-click copy with clipboard fallback
 
-### JWT Debugger
+### JWT Debugger ✅
 - Automatic header/payload/signature decoding
 - Token expiration validation with relative time display
 - Standard and custom claims separation
 - Algorithm detection (HS256/384/512, RS256/384/512, ES256/384/512)
+- Signature verification support
 
-### Unix Timestamp Converter
-- Bidirectional conversion (timestamp to date, date to timestamp)
+### Timestamp Converter ✅
+- Bidirectional conversion (timestamp ↔ date)
 - Automatic unit detection (seconds/milliseconds)
 - Timezone conversion (UTC, KST, JST, CST, EST, PST)
-- Relative time display
+- Relative time display ("2 days ago", "in 3 hours")
 - ISO 8601 support
 
-### URL Encoder/Decoder
+### URL Encoder/Decoder ✅
 - Encode/Decode URI and URI Component
 - Query string parser with table view
 - Example data loader
+- Real-time encoding/decoding
 
-### UUID Generator
+### UUID Generator ✅
 - UUID v1 (timestamp-based) and v4 (random) generation
 - Bulk generation (1-50 UUIDs)
 - Version and variant information display
+- One-click copy for each UUID
 
-### Hash Generator
+### Hash Generator ✅
 - Multiple algorithms (SHA-1, SHA-256, SHA-384, SHA-512)
 - Text and file hashing
 - Parallel hash calculation
+- Copy all hashes at once
 
-### Color Converter
-- HEX ↔ RGB ↔ HSL conversion
-- Real-time preview
+### Color Converter ✅
+- HEX ↔ RGB ↔ HSL bidirectional conversion
+- Real-time color preview
 - CSS color code generation
-- Named color support
+- Named color support (140+ colors)
 
-### QR Code Generator
+### QR Code Generator ✅
 - Custom text/URL to QR code
-- Adjustable size
+- Adjustable size (small/medium/large)
 - Download as PNG
-- Error correction level options
+- Error correction level options (L/M/Q/H)
+- Loading skeleton for better UX
 
 ### Core UX Features
 - **Command Palette** (Cmd+K) for quick tool access
