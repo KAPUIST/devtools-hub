@@ -58,23 +58,21 @@ export default function UUIDGeneratorPage() {
     }
   }
 
-  const handleCopyUUID = async (uuid: string, index: number) => {
-    // 기존 타이머 정리
+  // 공통 복사 함수 (코드 중복 제거)
+  const copyToClipboard = async (text: string, index: number): Promise<boolean> => {
+    // 기존 타이머 정리 (빠른 클릭 시 누적 방지)
     if (copyTimerRef.current) {
       clearTimeout(copyTimerRef.current)
+      copyTimerRef.current = null
     }
 
     try {
-      await navigator.clipboard.writeText(uuid)
-      setCopiedIndex(index)
-      copyTimerRef.current = setTimeout(() => {
-        setCopiedIndex(null)
-        copyTimerRef.current = null
-      }, 2000)
+      // Modern Clipboard API 시도
+      await navigator.clipboard.writeText(text)
     } catch (error) {
       // Fallback: 구식 방법으로 복사
       const textarea = document.createElement('textarea')
-      textarea.value = uuid
+      textarea.value = text
       textarea.style.position = 'fixed'
       textarea.style.opacity = '0'
       document.body.appendChild(textarea)
@@ -82,54 +80,31 @@ export default function UUIDGeneratorPage() {
 
       try {
         document.execCommand('copy')
-        setCopiedIndex(index)
-        copyTimerRef.current = setTimeout(() => {
-          setCopiedIndex(null)
-          copyTimerRef.current = null
-        }, 2000)
       } catch (fallbackError) {
         setError(t('uuidGenerator.errors.COPY_FAILED'))
+        document.body.removeChild(textarea)
+        return false
       } finally {
         document.body.removeChild(textarea)
       }
     }
+
+    // 성공 시에만 타이머 설정
+    setCopiedIndex(index)
+    copyTimerRef.current = setTimeout(() => {
+      setCopiedIndex(null)
+      copyTimerRef.current = null
+    }, 2000)
+
+    return true
   }
 
-  const handleCopyAll = async () => {
-    // 기존 타이머 정리
-    if (copyTimerRef.current) {
-      clearTimeout(copyTimerRef.current)
-    }
+  const handleCopyUUID = (uuid: string, index: number) => {
+    copyToClipboard(uuid, index)
+  }
 
-    try {
-      await navigator.clipboard.writeText(uuids.join('\n'))
-      setCopiedIndex(-1) // -1 = "Copy All" button
-      copyTimerRef.current = setTimeout(() => {
-        setCopiedIndex(null)
-        copyTimerRef.current = null
-      }, 2000)
-    } catch (error) {
-      // Fallback: 구식 방법으로 복사
-      const textarea = document.createElement('textarea')
-      textarea.value = uuids.join('\n')
-      textarea.style.position = 'fixed'
-      textarea.style.opacity = '0'
-      document.body.appendChild(textarea)
-      textarea.select()
-
-      try {
-        document.execCommand('copy')
-        setCopiedIndex(-1)
-        copyTimerRef.current = setTimeout(() => {
-          setCopiedIndex(null)
-          copyTimerRef.current = null
-        }, 2000)
-      } catch (fallbackError) {
-        setError(t('uuidGenerator.errors.COPY_FAILED'))
-      } finally {
-        document.body.removeChild(textarea)
-      }
-    }
+  const handleCopyAll = () => {
+    copyToClipboard(uuids.join('\n'), -1) // -1 = "Copy All" button
   }
 
   const getUUIDInfo = (uuid: string) => {

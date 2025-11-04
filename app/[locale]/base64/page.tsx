@@ -133,13 +133,20 @@ export default function Base64Page() {
     }
 
     const url = URL.createObjectURL(blob)
-    const a = document.createElement("a")
-    a.href = url
-    a.download = selectedFile.name
-    document.body.appendChild(a)
-    a.click()
-    document.body.removeChild(a)
-    URL.revokeObjectURL(url)
+
+    try {
+      const a = document.createElement("a")
+      a.href = url
+      a.download = selectedFile.name
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+    } catch (error) {
+      setError("파일 다운로드 중 오류가 발생했습니다.")
+    } finally {
+      // 에러 발생 여부와 관계없이 항상 메모리 정리
+      URL.revokeObjectURL(url)
+    }
   }
 
   const handleClear = () => {
