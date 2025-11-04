@@ -82,7 +82,23 @@ export default function QRGeneratorPage() {
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     } catch (error) {
-      console.error('Failed to copy to clipboard:', error)
+      // Fallback: 구식 방법으로 복사
+      const textarea = document.createElement('textarea')
+      textarea.value = qrCodeDataURL
+      textarea.style.position = 'fixed'
+      textarea.style.opacity = '0'
+      document.body.appendChild(textarea)
+      textarea.select()
+
+      try {
+        document.execCommand('copy')
+        setCopied(true)
+        setTimeout(() => setCopied(false), 2000)
+      } catch (fallbackError) {
+        setError(t('qrGenerator.errors.COPY_FAILED'))
+      } finally {
+        document.body.removeChild(textarea)
+      }
     }
   }
 

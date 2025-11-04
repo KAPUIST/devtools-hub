@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import { useTranslations } from "next-intl"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -15,6 +15,7 @@ export default function JsonFormatterPage() {
   const [error, setError] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
   const [indent, setIndent] = useState(2)
+  const debounceTimerRef = useRef<NodeJS.Timeout | null>(null)
 
   // 예시 데이터
   const exampleJson = `{"name":"John Doe","age":30,"email":"john@example.com","address":{"street":"123 Main St","city":"New York","country":"USA"},"hobbies":["reading","coding","gaming"]}`
@@ -22,7 +23,11 @@ export default function JsonFormatterPage() {
   useEffect(() => {
     // 초기 예시 데이터 설정
     setInput(exampleJson)
-    handleFormat(exampleJson, 2)
+    const result = formatJson(exampleJson, 2)
+    if (result.success && result.formatted) {
+      setOutput(result.formatted)
+      setError(null)
+    }
   }, [])
 
   const handleFormat = (value: string = input, indentSize: number = indent) => {
@@ -72,15 +77,41 @@ export default function JsonFormatterPage() {
     setError(null)
   }
 
+  // Debounced 포맷팅 (300ms)
+  const debouncedFormat = useCallback((value: string, indentSize: number) => {
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current)
+    }
+
+    debounceTimerRef.current = setTimeout(() => {
+      if (value.trim()) {
+        const result = formatJson(value, indentSize)
+        if (result.success && result.formatted) {
+          setOutput(result.formatted)
+          setError(null)
+        } else {
+          setError(result.error || "알 수 없는 오류")
+          setOutput("")
+        }
+      } else {
+        setOutput("")
+        setError(null)
+      }
+    }, 300)
+  }, [])
+
+  // Cleanup debounce timer
+  useEffect(() => {
+    return () => {
+      if (debounceTimerRef.current) {
+        clearTimeout(debounceTimerRef.current)
+      }
+    }
+  }, [])
+
   const handleInputChange = (value: string) => {
     setInput(value)
-    // 실시간 포맷팅 (debounce 없이)
-    if (value.trim()) {
-      handleFormat(value, indent)
-    } else {
-      setOutput("")
-      setError(null)
-    }
+    debouncedFormat(value, indent)
   }
 
   return (

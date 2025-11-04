@@ -34,7 +34,15 @@ export default function JWTDebuggerPage() {
     // 초기 예시 토큰 + Secret Key 설정
     setToken(exampleToken)
     setSecret(exampleSecret)
-    handleDecode(exampleToken)
+
+    const result = decodeJWT(exampleToken)
+    if (result.success) {
+      setDecodedResult(result)
+      setError(null)
+    } else {
+      setDecodedResult(null)
+      setError(result.error || "디코딩 중 오류가 발생했습니다.")
+    }
   }, [])
 
   const handleDecode = (value: string = token) => {
