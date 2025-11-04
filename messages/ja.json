@@ -23,6 +23,21 @@
     "frequentlyUsed": "よく使う",
     "additional": "追加"
   },
+  "shortcuts": {
+    "title": "キーボードショートカット",
+    "description": "ショートカットで作業を効率化",
+    "categoryNavigation": "ナビゲーション",
+    "categoryGeneral": "一般",
+    "categoryTools": "ツール",
+    "searchTools": "ツールを検索",
+    "showShortcuts": "ショートカットを表示",
+    "closeModal": "モーダル/ダイアログを閉じる",
+    "toggleTheme": "ダークモード切替",
+    "copyResult": "結果をコピー",
+    "executeFormat": "実行/フォーマット",
+    "pasteAndDetect": "貼り付けと自動検出",
+    "tip": "いつでも ? または Cmd+/ でこのリストを表示できます"
+  },
   "tools": {
     "jsonFormatter": "JSONフォーマッター",
     "regexTester": "正規表現テスター",

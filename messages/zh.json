@@ -23,6 +23,21 @@
     "frequentlyUsed": "常用",
     "additional": "附加"
   },
+  "shortcuts": {
+    "title": "键盘快捷键",
+    "description": "使用快捷键提高工作效率",
+    "categoryNavigation": "导航",
+    "categoryGeneral": "常规",
+    "categoryTools": "工具",
+    "searchTools": "搜索工具",
+    "showShortcuts": "显示快捷键",
+    "closeModal": "关闭弹窗/对话框",
+    "toggleTheme": "切换暗色模式",
+    "copyResult": "复制结果",
+    "executeFormat": "执行/格式化",
+    "pasteAndDetect": "粘贴并自动检测",
+    "tip": "随时按 ? 或 Cmd+/ 查看此列表"
+  },
   "tools": {
     "jsonFormatter": "JSON格式化工具",
     "regexTester": "正则表达式测试器",

@@ -15,7 +15,8 @@ import {
   type QRCodeSize,
   type ErrorCorrectionLevel
 } from "@/lib/tools/qrcode"
-import { Check, Copy, Download, QrCode } from "lucide-react"
+import { Check, Copy, Download, QrCode, Loader2 } from "lucide-react"
+import { Skeleton } from "@/components/ui/skeleton"
 
 export default function QRGeneratorPage() {
   const t = useTranslations()
@@ -224,51 +225,60 @@ export default function QRGeneratorPage() {
       </Card>
 
       {/* QR Code Preview Card */}
-      {qrCodeDataURL && (
+      {(qrCodeDataURL || isGenerating) && (
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg">{t('qrGenerator.preview')}</CardTitle>
+            <CardTitle className="text-lg flex items-center gap-2">
+              {isGenerating && <Loader2 className="h-4 w-4 animate-spin" />}
+              {t('qrGenerator.preview')}
+            </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             {/* QR Code Image */}
             <div className="flex justify-center">
               <div className="rounded-lg border border-input p-4 bg-white">
-                <img
-                  src={qrCodeDataURL}
-                  alt="QR Code"
-                  className="max-w-full h-auto"
-                />
+                {isGenerating ? (
+                  <Skeleton className="w-64 h-64" />
+                ) : qrCodeDataURL ? (
+                  <img
+                    src={qrCodeDataURL}
+                    alt="QR Code"
+                    className="max-w-full h-auto"
+                  />
+                ) : null}
               </div>
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-wrap gap-2">
-              <Button
-                onClick={handleDownload}
-                variant="default"
-                className="gap-2"
-              >
-                <Download className="h-4 w-4" />
-                {t('qrGenerator.download')}
-              </Button>
-              <Button
-                onClick={handleCopy}
-                variant="outline"
-                className="gap-2"
-              >
-                {copied ? (
-                  <>
-                    <Check className="h-4 w-4" />
-                    {t('common.copied')}
-                  </>
-                ) : (
-                  <>
-                    <Copy className="h-4 w-4" />
-                    {t('qrGenerator.copyDataURL')}
-                  </>
-                )}
-              </Button>
-            </div>
+            {!isGenerating && (
+              <div className="flex flex-wrap gap-2">
+                <Button
+                  onClick={handleDownload}
+                  variant="default"
+                  className="gap-2"
+                >
+                  <Download className="h-4 w-4" />
+                  {t('qrGenerator.download')}
+                </Button>
+                <Button
+                  onClick={handleCopy}
+                  variant="outline"
+                  className="gap-2"
+                >
+                  {copied ? (
+                    <>
+                      <Check className="h-4 w-4" />
+                      {t('common.copied')}
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="h-4 w-4" />
+                      {t('qrGenerator.copyDataURL')}
+                    </>
+                  )}
+                </Button>
+              </div>
+            )}
           </CardContent>
         </Card>
       )}

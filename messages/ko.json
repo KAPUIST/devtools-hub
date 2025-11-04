@@ -23,6 +23,21 @@
     "frequentlyUsed": "자주 사용",
     "additional": "추가"
   },
+  "shortcuts": {
+    "title": "키보드 단축키",
+    "description": "단축키로 작업 속도를 높이세요",
+    "categoryNavigation": "탐색",
+    "categoryGeneral": "일반",
+    "categoryTools": "도구",
+    "searchTools": "도구 검색",
+    "showShortcuts": "단축키 보기",
+    "closeModal": "모달/대화상자 닫기",
+    "toggleTheme": "다크모드 전환",
+    "copyResult": "결과 복사",
+    "executeFormat": "실행/포맷",
+    "pasteAndDetect": "붙여넣기 및 자동 감지",
+    "tip": "언제든지 ? 또는 Cmd+/를 눌러 이 목록을 볼 수 있습니다"
+  },
   "tools": {
     "jsonFormatter": "JSON 포맷터",
     "regexTester": "정규식 테스터",

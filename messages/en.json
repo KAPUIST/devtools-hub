@@ -23,6 +23,21 @@
     "frequentlyUsed": "Frequently Used",
     "additional": "Additional"
   },
+  "shortcuts": {
+    "title": "Keyboard Shortcuts",
+    "description": "Speed up your workflow with keyboard shortcuts",
+    "categoryNavigation": "Navigation",
+    "categoryGeneral": "General",
+    "categoryTools": "Tools",
+    "searchTools": "Search tools",
+    "showShortcuts": "Show keyboard shortcuts",
+    "closeModal": "Close modal/dialog",
+    "toggleTheme": "Toggle dark mode",
+    "copyResult": "Copy result",
+    "executeFormat": "Execute/Format",
+    "pasteAndDetect": "Paste and auto-detect",
+    "tip": "Press ? or Cmd+/ anytime to see this list"
+  },
   "tools": {
     "jsonFormatter": "JSON Formatter",
     "regexTester": "RegExp Tester",
