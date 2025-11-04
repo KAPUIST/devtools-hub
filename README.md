@@ -2,7 +2,7 @@
 
 A collection of developer tools with best-in-class UX/DX. No signup required, instant access.
 
-[![Vercel](https://img.shields.io/badge/deployed%20on-vercel-black)](https://devtools-hub.vercel.app)
+[![Vercel](https://img.shields.io/badge/deployed%20on-vercel-black)](https://devtools-hub-app.vercel.app)
 [![Next.js](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38bdf8)](https://tailwindcss.com/)
@@ -54,6 +54,18 @@ A collection of developer tools with best-in-class UX/DX. No signup required, in
 - Multiple algorithms (SHA-1, SHA-256, SHA-384, SHA-512)
 - Text and file hashing
 - Parallel hash calculation
+
+### Color Converter
+- HEX ↔ RGB ↔ HSL conversion
+- Real-time preview
+- CSS color code generation
+- Named color support
+
+### QR Code Generator
+- Custom text/URL to QR code
+- Adjustable size
+- Download as PNG
+- Error correction level options
 
 ### Core UX Features
 - Command Palette (Cmd+K) for quick tool access
@@ -113,7 +125,9 @@ devtools-hub/
 │       ├── timestamp/
 │       ├── url-encoder/
 │       ├── uuid-generator/
-│       └── hash-generator/
+│       ├── hash-generator/
+│       ├── color-converter/
+│       └── qr-generator/
 ├── components/
 │   ├── layout/
 │   ├── providers/
@@ -129,6 +143,8 @@ devtools-hub/
 │   ├── ko.json
 │   ├── ja.json
 │   └── zh.json
+├── public/
+│   └── ads.txt
 ├── middleware.ts
 └── next.config.ts
 ```
@@ -183,8 +199,13 @@ npx tsc --noEmit
 
 ```bash
 # .env.local (optional)
-NEXT_PUBLIC_SITE_URL=https://devtools-hub.vercel.app
+NEXT_PUBLIC_SITE_URL=https://devtools-hub-app.vercel.app
+
+# Google AdSense (optional)
+NEXT_PUBLIC_ADSENSE_CLIENT=ca-pub-9160245263564460
 ```
+
+**Note**: Google AdSense verification is configured via `public/ads.txt`.
 
 ## License
 

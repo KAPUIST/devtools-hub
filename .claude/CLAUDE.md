@@ -246,16 +246,19 @@ Pro ($3/월):
 - [x] RegExp Tester 구현 (초보자 친화적!)
 - [x] Cmd+K 검색 (Command Palette)
 - [x] 15개 정규식 패턴 프리셋
-- [ ] Base64 Encoder/Decoder 구현
-- [ ] 광고 통합 (Google AdSense)
-- [ ] Vercel 배포
+- [x] Base64 Encoder/Decoder 구현
+- [x] 광고 통합 (Google AdSense) - ads.txt 추가 완료
+- [x] Vercel 배포
 
-### Week 2: 추가 도구 (진행 예정)
-- [ ] Base64 Encoder/Decoder
-- [ ] JWT Debugger
+### Week 2: 추가 도구 (진행 중)
+- [x] Base64 Encoder/Decoder
+- [x] JWT Debugger
 - [ ] Unix Time Converter
 - [ ] URL Encoder
-- [ ] UUID Generator
+- [x] UUID Generator
+- [x] Hash Generator (MD5, SHA-256, etc.)
+- [x] Color Converter (HEX, RGB, HSL)
+- [x] QR Code Generator
 - [ ] SEO 최적화
 - [ ] ProductHunt 준비
 
@@ -292,13 +295,14 @@ Pro ($3/월):
 
 ```bash
 # .env.local
-NEXT_PUBLIC_SITE_URL=https://devtools-hub.vercel.app
+NEXT_PUBLIC_SITE_URL=https://devtools-hub-app.vercel.app
 
 # AI 기능 (나중에)
 OPENAI_API_KEY=sk-...
 
-# 광고 (나중에)
-NEXT_PUBLIC_ADSENSE_CLIENT=ca-pub-...
+# 광고 (설정 완료)
+NEXT_PUBLIC_ADSENSE_CLIENT=ca-pub-9160245263564460
+# public/ads.txt 추가 완료 (인증 진행 중)
 
 # 분석 (Vercel 자동)
 # NEXT_PUBLIC_GA_ID=G-...
@@ -383,9 +387,9 @@ export const metadata = {
 ## 성공 지표
 
 ### 단기 (1개월)
-- [ ] MVP 배포 완료
+- [x] MVP 배포 완료
 - [ ] 일 100 방문자
-- [ ] Google AdSense 승인
+- [ ] Google AdSense 승인 (진행 중 - ads.txt 추가 완료)
 - [ ] ProductHunt 론칭
 
 ### 중기 (3개월)
